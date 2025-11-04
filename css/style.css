@@ -1,11 +1,24 @@
+/* VARIABLES PARA EL MODO CLARO/OSCURO (Necesario para el JS del Toggle) */
+:root {
+  /* Colores Oscuros (Dark Mode) */
+  --galaxia-oscuro: #050507;
+  --galaxia-purpura: #421e64;
+  --blanco-nebuloso: #e6e6ff;
+  --celeste-claro: #7caffa; /* Usado para el toggle en JS */
+}
+
 html {
   scroll-behavior: smooth;
 }
+
+/* --- ESTILOS BASE Y FONDO --- */
 
 .gradient-bg {
   background: radial-gradient(circle at 30% 30%, #421e64 0%, #0b0c2a 50%, #050507 100%);
   background-attachment: fixed;
 }
+
+/* --- ESTILOS DE GALERÍA --- */
 
 .gallery-item {
   transition: all 0.3s ease;
@@ -16,6 +29,8 @@ html {
   box-shadow: 0 10px 25px rgba(59,167,255,0.4);
 }
 
+/* --- ESTILOS DE TRANSICIÓN --- */
+
 .fade {
   opacity: 0;
   transition: opacity 0.8s ease;
@@ -25,9 +40,12 @@ html {
   opacity: 1;
 }
 
+/* Ocultar la pantalla de acceso y mostrar el contenido principal */
 #contenido-principal {
   display: none;
 }
+
+/* --- ESTILOS DE HEADER Y FOOTER --- */
 
 footer {
   background-color: #050507;
@@ -38,6 +56,9 @@ header {
   background-color: #050507cc;
   border-bottom: 1px solid #421e64cc;
 }
+
+
+/* --- ESTILOS DE MODAL (LOGIN) --- */
 
 /* Blur y oscuridad para fondo cuando modal abierto */
 .modal-active #contenido-principal { 
@@ -78,3 +99,64 @@ header {
 #modalLogin.show .modal-content {
   transform: scale(1);
 }
+
+/* --- ESTILOS DE DASHBOARD (SECCIÓN INICIO) --- */
+
+.menu-option {
+  @apply flex flex-col items-center justify-center p-4 md:p-6 text-center 
+         bg-galaxia-oscuro border border-galaxia-purpura rounded-lg 
+         shadow-lg cursor-pointer transition-all duration-300;
+}
+
+.menu-option:hover {
+  @apply bg-galaxia-purpura/50 border-galaxia-azul shadow-cosmico-intenso 
+         transform scale-[1.02] text-luz-estelar;
+}
+
+
+/* --- ESTILOS MODO CLARO (Light Mode) --- */
+body[data-theme="light"] {
+  background-color: var(--luz-claro) !important;
+  color: #050507 !important; /* Negro espacial para texto */
+}
+
+body[data-theme="light"] header {
+  background-color: #ffffffcc;
+  border-bottom-color: #7caffa;
+}
+
+body[data-theme="light"] footer {
+  background-color: #e6e6ff;
+  border-top-color: #7caffa;
+}
+
+body[data-theme="light"] #contenido-principal a,
+body[data-theme="light"] #contenido-principal .text-blanco-nebuloso {
+  color: #1a1a1a !important; /* Texto más oscuro para contraste */
+}
+
+body[data-theme="light"] .gradient-bg {
+    /* Fondo degradado más claro o plano */
+    background: #f0f0ff;
+    background-attachment: fixed;
+}
+
+/* Colores de texto en modo claro */
+body[data-theme="light"] .text-galaxia-azul {
+    color: #421e64 !important; /* Cambia el azul por púrpura para contraste */
+}
+body[data-theme="light"] .text-luz-estelar {
+    color: #421e64 !important; /* Púrpura oscuro para encabezados */
+}
+
+/* Botones en modo claro */
+body[data-theme="light"] .menu-option {
+    background-color: #ffffff;
+    border-color: #a382c4;
+    color: #050507;
+}
+body[data-theme="light"] .menu-option:hover {
+    background-color: #a382c4;
+    color: #f0f0ff;
+}
+
