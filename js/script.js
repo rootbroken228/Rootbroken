@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         iniciarDescarga();
     }
     
-    // Inicializar el tema basado en el atributo data-theme
     const currentTheme = body.getAttribute('data-theme') || 'dark';
     updateThemeUI(currentTheme);
 
@@ -42,34 +41,44 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardSections.forEach(section => {
             if (section.id !== 'dashboard-inicio') {
                 section.classList.add('hidden');
+                section.classList.remove('show-slide'); // Asegura que la clase de animación no esté
+            } else {
+                // Muestra #dashboard-inicio por si la página se recarga en el hash
+                section.classList.remove('hidden');
             }
         });
     }
 });
 
 
-// --- LÓGICA DE NAVEGACIÓN DEL DASHBOARD ---
+// --- LÓGICA DE NAVEGACIÓN DEL DASHBOARD CON ANIMACIÓN ---
 
 function navigateDashboard(targetId) {
-    // 1. Ocultar todas las secciones del dashboard
-    const dashboardSections = sesionOculta.querySelectorAll('section');
-    dashboardSections.forEach(section => {
-        section.classList.add('hidden');
-    });
-
-    // 2. Mostrar la sección destino
-    const targetSection = document.getElementById(targetId);
-    if (targetSection) {
-        targetSection.classList.remove('hidden');
+    // 1. Ocultar la sección actualmente visible y quitar la clase de animación
+    const currentSection = sesionOculta.querySelector('section:not(.hidden)');
+    if (currentSection) {
+        currentSection.classList.remove('show-slide'); // Inicia la salida de animación
         
-        // 3. Scroll suave al inicio de la sección
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+        // Espera un poco (para que la animación de salida se vea) antes de ocultar y mostrar la nueva
+        setTimeout(() => {
+            currentSection.classList.add('hidden');
+
+            // 2. Mostrar la sección destino
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                targetSection.classList.add('show-slide'); // Añade la animación de entrada
+                
+                // 3. Scroll suave al inicio de la sección
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 300); // 300ms, ajusta este valor si quieres que la transición sea más lenta
     }
 }
 
 // Escuchar clics en el header avanzado
 document.addEventListener('click', (e) => {
-    // Buscar si el clic fue en un enlace del header avanzado
+    // Buscar si el clic fue en un enlace del header avanzado (escritorio y móvil)
     const link = e.target.closest('#header-avanzado a');
     if (link) {
         const hash = link.getAttribute('href');
@@ -97,14 +106,10 @@ document.getElementById('btnGoogle').addEventListener('click', () => {
   modalLogin.classList.remove('show');
   body.classList.remove('modal-active');
   
-  // Oculta la pantalla de acceso
   acceso.style.display = 'none';
-  
-  // Muestra el contenido principal
   contenido.style.display = 'block';
   setTimeout(() => contenido.classList.add('show'), 50);
   
-  // Asegura que se vea el header normal y se oculte la sesión oculta
   if(sesionOculta) sesionOculta.classList.add('hidden');
   if(headerNormal) headerNormal.classList.remove('hidden');
 
@@ -125,20 +130,23 @@ if (btnExplorar && sesionOculta) {
     btnExplorar.addEventListener('click', (e) => {
         e.preventDefault();
 
-        // 1. Ocultar contenido normal (Hero y Galeria)
+        // Ocultar contenido normal
         document.getElementById('inicio').classList.add('hidden');
         document.getElementById('galeria').classList.add('hidden');
         
-        // 2. Ocultar el header normal
+        // Ocultar el header normal
         headerNormal.classList.add('hidden');
 
-        // 3. Mostrar la Sesión Oculta (el Dashboard Avanzado)
+        // Mostrar la Sesión Oculta (el Dashboard Avanzado)
         sesionOculta.classList.remove('hidden');
 
-        // 4. Muestra el header avanzado
+        // Muestra el header avanzado
         headerAvanzado.classList.remove('hidden');
         
-        // 5. Navega a la nueva sección de inicio del dashboard
+        // Muestra la sección de inicio del dashboard con animación
+        document.getElementById('dashboard-inicio').classList.remove('hidden');
+        document.getElementById('dashboard-inicio').classList.add('show-slide');
+
         window.location.hash = '#dashboard-inicio';
         window.scrollTo(0,0);
     });
@@ -148,7 +156,7 @@ if (btnExplorar && sesionOculta) {
 // *** LÓGICA MODO CLARO/OSCURO ***
 
 function updateThemeUI(theme) {
-    // Lógica CSS para cambiar la clase y los iconos
+    // ... (El resto del código del modo oscuro se mantiene igual)
     if (theme === 'light') {
         toggleCircle.style.transform = 'translateX(100%)';
         themeToggle.style.backgroundColor = 'var(--celeste-claro)';
