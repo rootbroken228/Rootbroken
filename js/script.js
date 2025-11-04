@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCerrarSesionCuenta = document.getElementById('btnCerrarSesionCuenta');
 
     // --------------------------------------------------------------------------
-    // 2. FUNCIÓN DE NAVEGACIÓN ANIMADA (Dashboard)
+    // 2. FUNCIÓN DE NAVEGACIÓN ANIMADA (Dashboard) - CORRECCIÓN CLAVE
     // --------------------------------------------------------------------------
     const allSections = document.querySelectorAll('section');
 
@@ -28,23 +28,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const cleanHash = targetHash.replace(/^#/, '');
         const targetSection = document.getElementById(cleanHash);
 
-        // Ocultar todas las secciones del Dashboard con animación
+        // 1. Ocultar y desanimar todas las secciones del Dashboard
         allSections.forEach(sec => {
             if (sec.classList.contains('animated-section')) {
-                sec.classList.remove('active');
-                // Usamos un timeout para asegurar que la animación 'slideOut' (si existiera)
-                // o la clase 'hidden' se aplica después del proceso de navegación.
-                // Aquí solo nos enfocamos en que se quiten las clases activas.
+                // Quitar 'active' primero para que la animación de salida (si existiera)
+                // o la transición simple se aplique antes de ocultar con display: none
+                sec.classList.remove('active'); 
+                
+                // Usamos un pequeño delay para evitar el 'bug' de superposición
                 setTimeout(() => {
                     sec.classList.add('hidden');
                 }, 400); // 400ms es seguro, la animación CSS es de 500ms
             }
         });
-
+        
+        // 2. Mostrar la sección destino y aplicar la animación
         if (targetSection && targetSection.classList.contains('animated-section')) {
-            // Mostrar la sección destino y aplicar la animación
             targetSection.classList.remove('hidden');
-            // Timeout pequeño para forzar la re-pintura y aplicar la animación
+            // Timeout pequeño para forzar la re-pintura y aplicar la animación slideIn
             setTimeout(() => {
                 targetSection.classList.add('active');
             }, 50); 
@@ -125,25 +126,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const cleanHash = currentHash.replace(/^#/, '');
 
         // Determinar si el hash apunta a una sección del Dashboard
-        const isDashboardHash = document.getElementById(cleanHash)?.classList.contains('animated-section');
+        const targetElement = document.getElementById(cleanHash);
+        const isDashboardHash = targetElement && targetElement.classList.contains('animated-section');
 
         if (isDashboardHash) {
-            // 1. Mostrar vista Dashboard si no está activa
-            if (sesionOculta.classList.contains('hidden')) {
-                toggleDashboardView(true); // Esto fuerza el hash a #dashboard-inicio.
-                // Si el usuario navegó directamente, debemos sobreescribir el hash después
-                // de la transición inicial de toggleDashboardView
-                setTimeout(() => navigateToSection(currentHash), 50); 
-                return;
+            // Si ya estamos en la vista Dashboard, solo navegamos y animamos
+            if (!sesionOculta.classList.contains('hidden')) {
+                navigateToSection(currentHash);
+            } 
+            // Si no estamos en la vista Dashboard, primero la activamos
+            else {
+                // Forzar la activación de la vista Dashboard y luego navegar
+                headerNormal.classList.add('hidden');
+                headerAvanzado.classList.remove('hidden');
+                sesionOculta.classList.remove('hidden');
+                // Navegar inmediatamente a la sección deseada
+                navigateToSection(currentHash);
             }
-            // 2. Ejecutar la animación dentro del Dashboard
-            navigateToSection(currentHash);
         } else {
             // Vista Pública (#inicio o #galeria)
+            // Aseguramos que las secciones públicas son las únicas visibles.
             allSections.forEach(sec => sec.classList.add('hidden'));
-            const targetSection = document.getElementById(cleanHash);
-            if (targetSection) {
-                targetSection.classList.remove('hidden');
+            if (targetElement) {
+                targetElement.classList.remove('hidden');
             }
         }
     });
@@ -156,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('toggle-circle').style.transform = 'translateX(100%)';
             document.getElementById('sun-icon').style.opacity = '1';
             document.getElementById('moon-icon').style.opacity = '0';
-            // Clases para alternar color de fondo del toggle
             themeToggle.classList.replace('bg-galaxia-purpura', 'bg-celeste-claro');
         } else {
             document.body.setAttribute('data-theme', 'dark');
