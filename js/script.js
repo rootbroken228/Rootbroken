@@ -9,6 +9,9 @@ const btnExplorar = document.getElementById('btnExplorar');
 const sesionOculta = document.getElementById('sesion-oculta');
 const headerNormal = document.getElementById('header-normal');
 const headerAvanzado = document.getElementById('header-avanzado');
+const btnCerrarDashboard = document.getElementById('btnCerrarDashboard');
+const btnCerrarDashboardMovil = document.getElementById('btnCerrarDashboardMovil');
+const btnCerrarSesionCuenta = document.getElementById('btnCerrarSesionCuenta');
 
 // Elementos para el MODO CLARO/OSCURO
 const themeToggle = document.getElementById('theme-toggle');
@@ -41,9 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardSections.forEach(section => {
             if (section.id !== 'dashboard-inicio') {
                 section.classList.add('hidden');
-                section.classList.remove('show-slide'); // Asegura que la clase de animación no esté
+                section.classList.remove('show-slide');
             } else {
-                // Muestra #dashboard-inicio por si la página se recarga en el hash
                 section.classList.remove('hidden');
             }
         });
@@ -76,20 +78,57 @@ function navigateDashboard(targetId) {
     }
 }
 
-// Escuchar clics en el header avanzado
+// Escuchar clics en el header avanzado Y en los botones de acción del dashboard
 document.addEventListener('click', (e) => {
-    // Buscar si el clic fue en un enlace del header avanzado (escritorio y móvil)
-    const link = e.target.closest('#header-avanzado a');
+    // Busca si el clic fue en un enlace dentro del header avanzado o en un botón de acción
+    const link = e.target.closest('#header-avanzado a, #dashboard-inicio a.dashboard-action-btn');
+    
     if (link) {
         const hash = link.getAttribute('href');
-        // Solo navega si el hash apunta a una sección dentro del dashboard
-        if (hash === '#dashboard-inicio' || hash === '#cuenta' || hash === '#configuracion') {
-            e.preventDefault(); // Detiene el scroll nativo
-            navigateDashboard(hash.substring(1)); // Llama a la función de navegación (sin el #)
+        const targetId = hash.substring(1);
+        
+        // Verifica que el hash apunte a una sección dentro del dashboard
+        if (targetId && document.getElementById(targetId) && document.getElementById(targetId).closest('#sesion-oculta')) {
+            e.preventDefault(); 
+            navigateDashboard(targetId);
         }
     }
 });
 
+
+// --- LÓGICA DE CIERRE DEL DASHBOARD ---
+
+function closeDashboard() {
+    // 1. Ocultar la sesión oculta
+    sesionOculta.classList.add('hidden');
+
+    // 2. Ocultar el header avanzado
+    headerAvanzado.classList.add('hidden');
+
+    // 3. Mostrar contenido normal
+    document.getElementById('inicio').classList.remove('hidden');
+    document.getElementById('galeria').classList.remove('hidden');
+    
+    // 4. Mostrar el header normal
+    headerNormal.classList.remove('hidden');
+    
+    // 5. Navegar a la URL principal y hacer scroll al inicio
+    window.location.hash = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // 6. Asegurar que la sección de inicio del dashboard esté visible para el próximo acceso
+    navigateDashboard('dashboard-inicio');
+}
+
+if (btnCerrarDashboard) {
+    btnCerrarDashboard.addEventListener('click', closeDashboard);
+}
+if (btnCerrarDashboardMovil) {
+    btnCerrarDashboardMovil.addEventListener('click', closeDashboard);
+}
+if (btnCerrarSesionCuenta) {
+    btnCerrarSesionCuenta.addEventListener('click', closeDashboard);
+}
 
 // 2. LOGICA DE ACCESO (Modal)
 if (botonAcceder) {
@@ -156,7 +195,6 @@ if (btnExplorar && sesionOculta) {
 // *** LÓGICA MODO CLARO/OSCURO ***
 
 function updateThemeUI(theme) {
-    // ... (El resto del código del modo oscuro se mantiene igual)
     if (theme === 'light') {
         toggleCircle.style.transform = 'translateX(100%)';
         themeToggle.style.backgroundColor = 'var(--celeste-claro)';
