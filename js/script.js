@@ -9,40 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerAvanzado = document.getElementById('header-avanzado');
     const btnAcceder = document.getElementById('btnAcceder');
     const btnExplorar = document.getElementById('btnExplorar');
-    const btnCerrarDashboard = document.getElementById('btnCerrarDashboard');
-    const btnCerrarDashboardMovil = document.getElementById('btnCerrarDashboardMovil');
-    const btnCerrarSesionCuenta = document.getElementById('btnCerrarSesionCuenta');
     const modalLogin = document.getElementById('modalLogin');
     const btnGoogle = document.getElementById('btnGoogle');
     const descargaSecreta = document.getElementById('descarga-secreta');
     const themeToggle = document.getElementById('theme-toggle');
 
+    // Selectores para cerrar sesión
+    const btnCerrarDashboard = document.getElementById('btnCerrarDashboard');
+    const btnCerrarDashboardMovil = document.getElementById('btnCerrarDashboardMovil');
+    const btnCerrarSesionCuenta = document.getElementById('btnCerrarSesionCuenta');
+
     // --------------------------------------------------------------------------
-    // 2. FUNCIÓN DE NAVEGACIÓN (Controla el Hash URL y las transiciones)
+    // 2. FUNCIÓN DE NAVEGACIÓN ANIMADA (Dashboard)
     // --------------------------------------------------------------------------
-    const sections = document.querySelectorAll('section');
+    const allSections = document.querySelectorAll('section');
 
     const navigateToSection = (targetHash) => {
-        // Limpiar el hash para mostrar la sección correcta
         const cleanHash = targetHash.replace(/^#/, '');
-        
-        // 1. Ocultar todas las secciones
-        sections.forEach(sec => {
-            sec.classList.remove('active');
-            sec.classList.add('hidden');
+        const targetSection = document.getElementById(cleanHash);
+
+        // Ocultar todas las secciones del Dashboard con animación
+        allSections.forEach(sec => {
+            if (sec.classList.contains('animated-section')) {
+                sec.classList.remove('active');
+                // Usamos un timeout para asegurar que la animación 'slideOut' (si existiera)
+                // o la clase 'hidden' se aplica después del proceso de navegación.
+                // Aquí solo nos enfocamos en que se quiten las clases activas.
+                setTimeout(() => {
+                    sec.classList.add('hidden');
+                }, 400); // 400ms es seguro, la animación CSS es de 500ms
+            }
         });
 
-        // 2. Mostrar la sección destino
-        const targetSection = document.getElementById(cleanHash);
-        if (targetSection) {
-            // Aplicar la animación de slide-in
+        if (targetSection && targetSection.classList.contains('animated-section')) {
+            // Mostrar la sección destino y aplicar la animación
             targetSection.classList.remove('hidden');
-            // Timeout para asegurar que el 'display: none' se ha quitado antes de animar
+            // Timeout pequeño para forzar la re-pintura y aplicar la animación
             setTimeout(() => {
                 targetSection.classList.add('active');
-            }, 10); 
+            }, 50); 
             
-            // 3. Ocultar menú móvil avanzado si está abierto
+            // Ocultar menú móvil avanzado si está abierto
             const mobileMenuAvanzado = document.getElementById('mobile-menu-avanzado');
             if (mobileMenuAvanzado && !mobileMenuAvanzado.classList.contains('hidden')) {
                 mobileMenuAvanzado.classList.add('hidden');
@@ -61,35 +68,29 @@ document.addEventListener('DOMContentLoaded', () => {
             headerAvanzado.classList.remove('hidden');
             sesionOculta.classList.remove('hidden');
             
-            // Navegar a la sección inicial del dashboard
-            navigateToSection('#dashboard-inicio');
-
+            // Forzar navegación al inicio del dashboard
+            window.location.hash = '#dashboard-inicio';
         } else {
             // Salir del Dashboard Avanzado (Volver a la vista pública)
             headerNormal.classList.remove('hidden');
             headerAvanzado.classList.add('hidden');
             sesionOculta.classList.add('hidden');
             
-            // Navegar a la sección de inicio pública
+            // Forzar navegación al inicio de la vista pública
             window.location.hash = '#inicio';
-            // El hashchange handler se encarga de mostrar la sección '#inicio'
+            window.scrollTo(0, 0); 
         }
     };
     
     // --------------------------------------------------------------------------
-    // 4. HANDLERS DE EVENTOS
+    // 4. HANDLERS DE EVENTOS Y LÓGICA DE INICIO
     // --------------------------------------------------------------------------
 
-    // a. Botón ACCEDER (Pantalla inicial)
-    btnAcceder.addEventListener('click', () => {
-        modalLogin.classList.add('show');
-    });
-
-    // b. Botón GOOGLE (Simulación de Login)
+    // a. Botón ACCEDER y Login
+    btnAcceder.addEventListener('click', () => { modalLogin.classList.add('show'); });
     btnGoogle.addEventListener('click', () => {
         modalLogin.classList.remove('show');
         
-        // Simular un tiempo de carga y transición
         contenidoPrincipal.style.opacity = '0';
         setTimeout(() => {
             pantallaAcceso.classList.add('hidden');
@@ -98,17 +99,17 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.hash = '#inicio';
         }, 500);
         
-        // Ejecutar descarga secreta al loguearse por primera vez (Descarga de archivo)
+        // Ejecutar descarga secreta
         descargaSecreta.click();
     });
 
-    // c. Botón EXPLORAR (Dashboard Normal -> Dashboard Avanzado)
+    // b. Botón EXPLORAR (Entrar al Dashboard)
     btnExplorar.addEventListener('click', (e) => {
         e.preventDefault();
         toggleDashboardView(true);
     });
     
-    // d. Botón CERRAR DASHBOARD (Dashboard Avanzado -> Dashboard Normal)
+    // c. Botones CERRAR SESIÓN (Salir del Dashboard)
     [btnCerrarDashboard, btnCerrarDashboardMovil, btnCerrarSesionCuenta].forEach(btn => {
         if(btn) {
             btn.addEventListener('click', (e) => {
@@ -118,43 +119,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // e. Manejo de Clics en enlaces con hash (para navegación fluida)
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('a[href^="#"]')) {
-            e.preventDefault();
-            const targetHash = e.target.closest('a[href^="#"]').getAttribute('href');
-            
-            // Si estamos en el dashboard avanzado y navegamos a una de sus secciones internas
-            if (sesionOculta && !sesionOculta.classList.contains('hidden') && targetHash.startsWith('#')) {
-                window.location.hash = targetHash;
-            } 
-            // Si estamos en la vista pública
-            else if (targetHash === '#inicio' || targetHash === '#galeria') {
-                window.location.hash = targetHash;
-            }
-        }
-    });
-
-    // f. Evento Hashchange (El motor de la SPA)
+    // d. Evento Hashchange (El motor de la SPA)
     window.addEventListener('hashchange', () => {
         const currentHash = window.location.hash || '#inicio';
-        
-        if (sesionOculta && !sesionOculta.classList.contains('hidden')) {
-            // Estamos en el Dashboard Avanzado: Usar la navegación animada
+        const cleanHash = currentHash.replace(/^#/, '');
+
+        // Determinar si el hash apunta a una sección del Dashboard
+        const isDashboardHash = document.getElementById(cleanHash)?.classList.contains('animated-section');
+
+        if (isDashboardHash) {
+            // 1. Mostrar vista Dashboard si no está activa
+            if (sesionOculta.classList.contains('hidden')) {
+                toggleDashboardView(true); // Esto fuerza el hash a #dashboard-inicio.
+                // Si el usuario navegó directamente, debemos sobreescribir el hash después
+                // de la transición inicial de toggleDashboardView
+                setTimeout(() => navigateToSection(currentHash), 50); 
+                return;
+            }
+            // 2. Ejecutar la animación dentro del Dashboard
             navigateToSection(currentHash);
         } else {
-            // Estamos en la vista pública: Mostrar solo las secciones públicas
-            sections.forEach(sec => sec.classList.add('hidden'));
-            const targetSection = document.getElementById(currentHash.replace(/^#/, ''));
+            // Vista Pública (#inicio o #galeria)
+            allSections.forEach(sec => sec.classList.add('hidden'));
+            const targetSection = document.getElementById(cleanHash);
             if (targetSection) {
                 targetSection.classList.remove('hidden');
-                // Asegurar que el scroll esté arriba al cambiar de sección pública
-                window.scrollTo(0, 0); 
             }
         }
     });
 
-    // g. Lógica del Tema Claro/Oscuro
+    // e. Lógica del Tema Claro/Oscuro
     themeToggle.addEventListener('click', () => {
         const isDark = document.body.getAttribute('data-theme') === 'dark';
         if (isDark) {
@@ -162,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('toggle-circle').style.transform = 'translateX(100%)';
             document.getElementById('sun-icon').style.opacity = '1';
             document.getElementById('moon-icon').style.opacity = '0';
+            // Clases para alternar color de fondo del toggle
             themeToggle.classList.replace('bg-galaxia-purpura', 'bg-celeste-claro');
         } else {
             document.body.setAttribute('data-theme', 'dark');
@@ -179,28 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Al cargar la página, ocultar el contenido principal por defecto
     contenidoPrincipal.classList.add('hidden');
     
-    // Revisar el hash al cargar la página (para refresco o entrada directa)
-    const initialHash = window.location.hash;
-    if (initialHash) {
-        // Si hay hash, asumimos que el usuario está en la vista pública o Dashboard
-        // Esto solo es una simulación. En una aplicación real, se manejaría con rutas de servidor.
-        
-        // Si el hash es de Dashboard, simular entrada al Dashboard (ej. si se refresca la página)
-        if (initialHash.startsWith('#dashboard-') || initialHash === '#cuenta' || initialHash === '#configuracion') {
-            pantallaAcceso.classList.add('hidden');
-            contenidoPrincipal.classList.remove('hidden');
-            toggleDashboardView(true); // Entrar al dashboard avanzado
-            navigateToSection(initialHash); // Ir a la subsección específica
-        } else {
-            // Vista pública
-            pantallaAcceso.classList.add('hidden');
-            contenidoPrincipal.classList.remove('hidden');
-            // Llamar al hashchange handler manualmente para mostrar la sección correcta
-            window.dispatchEvent(new Event('hashchange'));
-        }
-    } else {
-        // No hay hash: forzar #inicio para la vista pública
-        window.location.hash = '#inicio';
-        // El hashchange handler se encargará de ocultar la pantalla de acceso
-    }
+    // Lanzar el evento hashchange para mostrar la vista correcta al cargar
+    window.dispatchEvent(new Event('hashchange'));
 });
