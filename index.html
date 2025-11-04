@@ -81,7 +81,7 @@
         </button>
       </div>
 
-      <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30 bg-negro-espacial/90 min-w-[200px]">
+      <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30">
         <a href="#inicio" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
         <a href="#galeria" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Recursos</a>
       </nav>
@@ -138,27 +138,15 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 class="text-2xl md:text-3xl font-montserrat font-black text-luz-estelar tracking-tight">DASHBOARD</h1>
 
-          <nav class="hidden md:flex space-x-8 items-center">
+          <nav class="hidden md:flex space-x-8">
             <a href="#dashboard-inicio" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
             <a href="#cuenta" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Cuenta</a>
             <a href="#configuracion" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Configuración</a>
-            
-            <button id="btnCerrarDashboard"
-                class="bg-galaxia-azul text-negro-espacial px-4 py-2 rounded-full font-montserrat font-bold text-sm hover:bg-luz-estelar transition-colors duration-300 ml-4">
-                Cerrar <i class="fas fa-sign-out-alt ml-1"></i>
-            </button>
           </nav>
 
-          <div class="md:hidden flex items-center space-x-4">
-            <button id="btnCerrarDashboardMovil"
-                class="bg-galaxia-azul text-negro-espacial px-3 py-1.5 rounded-full font-montserrat font-bold text-xs hover:bg-luz-estelar transition-colors duration-300">
-                Cerrar <i class="fas fa-sign-out-alt ml-1"></i>
-            </button>
-            
-            <button id="menu-toggle-avanzado" class="text-luz-estelar">
-              <i class="fas fa-bars text-xl"></i>
-            </button>
-          </div>
+          <button id="menu-toggle-avanzado" class="md:hidden text-luz-estelar">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
         </div>
 
         <nav id="mobile-menu-avanzado" class="md:hidden hidden flex-col space-y-3 p-3 absolute right-4 top-16 rounded-xl border border-galaxia-purpura/30 bg-negro-espacial/90 min-w-[200px]">
@@ -176,336 +164,24 @@
 
           <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">MÓVILES (ANDROID)</h3>
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
-            <a href="#movil-crear-id" class="dashboard-action-btn"><i class="fas fa-plus text-3xl mb-2"></i> Crear ID</a>
-            <a href="#movil-soporte" class="dashboard-action-btn"><i class="fas fa-question-circle text-3xl mb-2"></i> Soporte</a>
-            <a href="#movil-almacen" class="dashboard-action-btn"><i class="fas fa-download text-3xl mb-2"></i> Almacén</a>
-            <a href="#movil-logs" class="dashboard-action-btn"><i class="fas fa-sticky-note text-3xl mb-2"></i> Logs</a>
+            <button class="menu-option"><i class="fas fa-plus text-3xl mb-2"></i> Crear ID</button>
+            <button class="menu-option"><i class="fas fa-question-circle text-3xl mb-2"></i> Soporte</button>
+            <button class="menu-option"><i class="fas fa-download text-3xl mb-2"></i> Almacén</button>
+            <button class="menu-option"><i class="fas fa-sticky-note text-3xl mb-2"></i> Logs</button>
           </div>
 
           <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">ESCRITORIO (PC/MAC)</h3>
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            <a href="#escritorio-herramientas" class="dashboard-action-btn"><i class="fas fa-cube text-3xl mb-2"></i> Herramientas</a>
-            <a href="#escritorio-terminal" class="dashboard-action-btn"><i class="fas fa-code text-3xl mb-2"></i> Terminal</a>
-            <a href="#escritorio-historial" class="dashboard-action-btn"><i class="fas fa-history text-3xl mb-2"></i> Historial</a>
-            <a href="#escritorio-conexion" class="dashboard-action-btn"><i class="fas fa-network-wired text-3xl mb-2"></i> Conexión</a>
-            <a href="#escritorio-pruebas" class="dashboard-action-btn"><i class="fas fa-vial text-3xl mb-2"></i> Pruebas A/B</a>
+            <button class="menu-option"><i class="fas fa-cube text-3xl mb-2"></i> Herramientas</button>
+            <button class="menu-option"><i class="fas fa-code text-3xl mb-2"></i> Terminal</button>
+            <button class="menu-option"><i class="fas fa-history text-3xl mb-2"></i> Historial</button>
+            <button class="menu-option"><i class="fas fa-network-wired text-3xl mb-2"></i> Conexión</button>
+            <button class="menu-option"><i class="fas fa-vial text-3xl mb-2"></i> Pruebas A/B</button>
           </div>
         </div>
       </section>
 
-      <section id="movil-crear-id" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-galaxia-azul mb-12 text-center">Gestión: Crear ID</h2>
-          
-          <div class="max-w-3xl mx-auto p-8 border border-galaxia-purpura rounded-lg shadow-lg">
-              <h3 class="text-2xl font-montserrat font-bold mb-6 text-luz-estelar">Aprovisionamiento de Nueva Identidad Móvil</h3>
-              
-              <form class="space-y-4">
-                  <div>
-                      <label for="tipoID" class="block mb-2 font-medium">Tipo de Identidad:</label>
-                      <select id="tipoID" class="w-full p-3 rounded bg-galaxia-oscuro border border-galaxia-purpura focus:border-galaxia-azul focus:ring-1 focus:ring-galaxia-azul">
-                          <option value="alpha">ALPHA (Acceso Completo)</option>
-                          <option value="beta">BETA (Acceso Limitado)</option>
-                          <option value="audit">AUDIT (Solo Lectura)</option>
-                      </select>
-                  </div>
-                  <div>
-                      <label for="nombreUsuario" class="block mb-2 font-medium">Nombre de Usuario (Máscara):</label>
-                      <input type="text" id="nombreUsuario" placeholder="Ej: Agente_007_MB" class="w-full p-3 rounded bg-galaxia-oscuro border border-galaxia-purpura focus:border-galaxia-azul focus:ring-1 focus:ring-galaxia-azul">
-                  </div>
-                  <div>
-                      <label for="clave" class="block mb-2 font-medium">Clave de Activación (Temporal):</label>
-                      <input type="text" id="clave" value="RB-TEMP-9372-ALPHA" readonly class="w-full p-3 rounded bg-galaxia-purpura/20 border border-galaxia-purpura/50 cursor-not-allowed">
-                  </div>
-                  
-                  <button type="submit" class="w-full bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300 mt-6">
-                      GENERAR Y ASIGNAR ID <i class="fas fa-magic ml-2"></i>
-                  </button>
-              </form>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="movil-soporte" class="animated-section hidden min-h-screen pt-20 gradient-bg">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-luz-estelar mb-12 text-center">Centro de Soporte Móvil</h2>
-          
-          <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div class="p-6 border border-galaxia-purpura/50 rounded-lg bg-galaxia-oscuro/50 shadow-lg">
-                  <h3 class="text-2xl font-montserrat font-bold mb-4 text-galaxia-azul"><i class="fas fa-ticket-alt mr-2"></i> Abrir Nuevo Ticket</h3>
-                  <p class="mb-4 text-sm">Describe el incidente detalladamente para un escalamiento rápido.</p>
-                  <form class="space-y-4">
-                      <input type="text" placeholder="Asunto del Incidente" class="w-full p-2 rounded bg-galaxia-oscuro border border-galaxia-purpura">
-                      <textarea placeholder="Descripción detallada del fallo..." rows="4" class="w-full p-2 rounded bg-galaxia-oscuro border border-galaxia-purpura"></textarea>
-                      <button type="submit" class="bg-galaxia-purpura text-blanco-nebuloso px-6 py-2 rounded-full font-bold hover:bg-galaxia-azul transition-colors duration-300">
-                          Enviar Ticket
-                      </button>
-                  </form>
-              </div>
-              
-              <div class="p-6 border border-galaxia-purpura/50 rounded-lg bg-galaxia-oscuro/50 shadow-lg">
-                  <h3 class="text-2xl font-montserrat font-bold mb-4 text-galaxia-azul"><i class="fas fa-book mr-2"></i> Documentación Rápida</h3>
-                  <ul class="space-y-3">
-                      <li><a href="#" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300">Guía de Configuración Inicial (V. 3.1)</a></li>
-                      <li><a href="#" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300">Protocolo de Cifrado y VPN</a></li>
-                      <li><a href="#" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300">Resolución de Errores de Conexión (Código 403)</a></li>
-                  </ul>
-              </div>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="movil-almacen" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-galaxia-azul mb-12 text-center">Almacén de Archivos Digitales</h2>
-          
-          <div class="max-w-5xl mx-auto overflow-x-auto border border-galaxia-purpura rounded-lg shadow-lg">
-              <table class="min-w-full divide-y divide-galaxia-purpura">
-                  <thead class="bg-galaxia-oscuro/50">
-                      <tr>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Archivo</th>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Versión</th>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Fecha</th>
-                          <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Acción</th>
-                      </tr>
-                  </thead>
-                  <tbody class="divide-y divide-galaxia-purpura/50">
-                      <tr class="hover:bg-galaxia-purpura/10">
-                          <td class="px-6 py-4 whitespace-nowrap"><i class="fas fa-file-alt mr-2 text-luz-estelar"></i> Firmware-Android-Q3.bin</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-green-400">2.1.0 (Stable)</td>
-                          <td class="px-6 py-4 whitespace-nowrap">2025-10-20</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-center">
-                              <a href="#" class="text-galaxia-azul hover:text-luz-estelar font-bold"><i class="fas fa-download"></i> Descargar</a>
-                          </td>
-                      </tr>
-                      <tr class="hover:bg-galaxia-purpura/10">
-                          <td class="px-6 py-4 whitespace-nowrap"><i class="fas fa-file-archive mr-2 text-yellow-400"></i> Parche-Seguridad-005.zip</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-red-400">1.0.1 (Critical)</td>
-                          <td class="px-6 py-4 whitespace-nowrap">2025-11-01</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-center">
-                              <a href="#" class="text-galaxia-azul hover:text-luz-estelar font-bold"><i class="fas fa-download"></i> Descargar</a>
-                          </td>
-                      </tr>
-                      <tr class="hover:bg-galaxia-purpura/10">
-                          <td class="px-6 py-4 whitespace-nowrap"><i class="fas fa-file-pdf mr-2 text-red-500"></i> Manual-Operativo-V2.pdf</td>
-                          <td class="px-6 py-4 whitespace-nowrap">2.0.0</td>
-                          <td class="px-6 py-4 whitespace-nowrap">2025-09-15</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-center">
-                              <a href="#" class="text-galaxia-azul hover:text-luz-estelar font-bold"><i class="fas fa-download"></i> Descargar</a>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="movil-logs" class="animated-section hidden min-h-screen pt-20 gradient-bg">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-luz-estelar mb-12 text-center">Registro de Actividad (Logs)</h2>
-          
-          <div class="max-w-4xl mx-auto h-96 overflow-y-scroll bg-galaxia-oscuro p-4 rounded-lg border border-galaxia-purpura shadow-xl font-mono text-sm">
-              <p class="text-green-400">[2025-11-04 01:25:10] <span class="text-galaxia-azul">INFO:</span> Sesión ID-Usuario-001 iniciada desde IP: 192.168.1.5</p>
-              <p class="text-yellow-400">[2025-11-04 01:25:35] <span class="text-galaxia-azul">WARNING:</span> Intento de acceso a recurso ALPHA-3 denegado (Nivel: ALPHA-2)</p>
-              <p class="text-green-400">[2025-11-04 01:26:01] <span class="text-galaxia-azul">INFO:</span> Archivo 'Parche-Seguridad-005.zip' consultado por ID-Usuario-001</p>
-              <p class="text-red-500">[2025-11-04 01:27:15] <span class="text-galaxia-azul">CRITICAL:</span> Fallo de sincronización con Nodo 4. Reiniciando conexión...</p>
-              <p class="text-green-400">[2025-11-04 01:28:05] <span class="text-galaxia-azul">INFO:</span> Dispositivo 'Agente_007_MB' reporta sincronización exitosa.</p>
-              <p class="text-green-400">[2025-11-04 01:29:10] <span class="text-galaxia-azul">INFO:</span> Sesión ID-Usuario-001 terminada. Duración: 4m 0s</p>
-              </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="escritorio-herramientas" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-galaxia-azul mb-12 text-center">Módulo de Herramientas de Desarrollo</h2>
-          
-          <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="dev-card">
-                  <i class="fas fa-cloud-upload-alt text-4xl mb-3 text-luz-estelar"></i>
-                  <h4 class="font-montserrat font-bold text-xl mb-2">Compilador Remoto</h4>
-                  <p class="text-sm">Envía código fuente directamente a los servidores de compilación paralela.</p>
-                  <button class="action-btn-sm mt-4 bg-green-500 hover:bg-green-600">Iniciar Compilación</button>
-              </div>
-              <div class="dev-card">
-                  <i class="fas fa-bug text-4xl mb-3 text-red-500"></i>
-                  <h4 class="font-montserrat font-bold text-xl mb-2">Depurador en Tiempo Real</h4>
-                  <p class="text-sm">Monitorea y traza la ejecución de procesos críticos en el entorno de producción.</p>
-                  <button class="action-btn-sm mt-4 bg-red-500 hover:bg-red-600">Activar Tracing</button>
-              </div>
-              <div class="dev-card">
-                  <i class="fas fa-database text-4xl mb-3 text-yellow-500"></i>
-                  <h4 class="font-montserrat font-bold text-xl mb-2">Gestor de Esquemas DB</h4>
-                  <p class="text-sm">Acceso a la vista y modificación controlada de los esquemas de la base de datos central.</p>
-                  <button class="action-btn-sm mt-4 bg-yellow-500 hover:bg-yellow-600">Abrir Consola SQL</button>
-              </div>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="escritorio-terminal" class="animated-section hidden min-h-screen pt-20 gradient-bg">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-luz-estelar mb-12 text-center">Terminal de Comando Directo</h2>
-          
-          <div class="max-w-4xl mx-auto p-6 bg-galaxia-oscuro border border-galaxia-purpura rounded-lg shadow-xl">
-              <div class="h-64 overflow-y-scroll bg-black p-3 mb-4 rounded font-mono text-sm text-green-400">
-                  <p>RootBroken Console [V 5.2.1]</p>
-                  <p class="text-red-500">¡Advertencia! Acceso de nivel ALPHA-2. Comandos críticos registrados.</p>
-                  <p>root@terminal-s4:~# <span id="terminal-output" class="text-blanco-nebuloso">Esperando comando...</span></p>
-              </div>
-              <div class="flex space-x-2">
-                  <input type="text" id="command-input" placeholder="Escribe tu comando aquí (ej: status)" class="flex-grow p-2 rounded bg-negro-espacial border border-galaxia-purpura font-mono">
-                  <button id="execute-btn" class="bg-galaxia-purpura text-blanco-nebuloso px-6 py-2 rounded-lg font-bold hover:bg-galaxia-azul transition-colors duration-300">
-                      Ejecutar
-                  </button>
-              </div>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="escritorio-historial" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-galaxia-azul mb-12 text-center">Historial de Operaciones Críticas</h2>
-          
-          <div class="max-w-5xl mx-auto overflow-x-auto border border-galaxia-purpura rounded-lg shadow-lg">
-              <table class="min-w-full divide-y divide-galaxia-purpura">
-                  <thead class="bg-galaxia-oscuro/50">
-                      <tr>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Hora UTC</th>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Usuario</th>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acción</th>
-                          <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Resultado</th>
-                      </tr>
-                  </thead>
-                  <tbody class="divide-y divide-galaxia-purpura/50">
-                      <tr class="hover:bg-galaxia-purpura/10">
-                          <td class="px-6 py-4 whitespace-nowrap">00:15:30</td>
-                          <td class="px-6 py-4 whitespace-nowrap">ALPHA-2 / ID-001</td>
-                          <td class="px-6 py-4 whitespace-nowrap">Modificación de Nivel de Acceso (ID-005)</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-green-400">Éxito <i class="fas fa-check-circle ml-2"></i></td>
-                      </tr>
-                      <tr class="hover:bg-galaxia-purpura/10">
-                          <td class="px-6 py-4 whitespace-nowrap">00:12:05</td>
-                          <td class="px-6 py-4 whitespace-nowrap">SYSTEM / AUTO-MNT</td>
-                          <td class="px-6 py-4 whitespace-nowrap">Borrado de Logs (Antigüedad > 1 Año)</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-green-400">Éxito <i class="fas fa-check-circle ml-2"></i></td>
-                      </tr>
-                      <tr class="hover:bg-galaxia-purpura/10">
-                          <td class="px-6 py-4 whitespace-nowrap">00:08:45</td>
-                          <td class="px-6 py-4 whitespace-nowrap">BETA-1 / ID-008</td>
-                          <td class="px-6 py-4 whitespace-nowrap">Intento de Inserción de Código Malicioso</td>
-                          <td class="px-6 py-4 whitespace-nowrap text-red-500">Denegado <i class="fas fa-times-circle ml-2"></i></td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="escritorio-conexion" class="animated-section hidden min-h-screen pt-20 gradient-bg">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-luz-estelar mb-12 text-center">Monitor de Conexión y Red</h2>
-          
-          <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div class="stat-card">
-                  <i class="fas fa-exchange-alt text-4xl mb-3 text-green-400"></i>
-                  <p class="text-3xl font-montserrat font-bold">98.7%</p>
-                  <p class="text-sm uppercase font-bold text-galaxia-azul">Disponibilidad de Red</p>
-              </div>
-              <div class="stat-card">
-                  <i class="fas fa-satellite-dish text-4xl mb-3 text-yellow-400"></i>
-                  <p class="text-3xl font-montserrat font-bold">5.2 ms</p>
-                  <p class="text-sm uppercase font-bold text-galaxia-azul">Latencia Promedio</p>
-              </div>
-              <div class="stat-card">
-                  <i class="fas fa-server text-4xl mb-3 text-red-500"></i>
-                  <p class="text-3xl font-montserrat font-bold">Nodo 4</p>
-                  <p class="text-sm uppercase font-bold text-galaxia-azul">Estado Crítico</p>
-              </div>
-          </div>
-
-          <div class="max-w-5xl mx-auto mt-10 p-6 bg-galaxia-oscuro/50 border border-galaxia-purpura rounded-lg shadow-lg">
-              <h3 class="text-2xl font-montserrat font-bold mb-4 text-luz-estelar">Tráfico por Nodos</h3>
-              <div class="flex items-end justify-between h-40 pt-4 px-4">
-                  <div class="w-1/5 bg-galaxia-azul h-full rounded-t hover:scale-y-[1.05] transition-transform duration-300" title="Nodo 1: 100%"></div>
-                  <div class="w-1/5 bg-galaxia-azul h-3/4 rounded-t hover:scale-y-[1.05] transition-transform duration-300" title="Nodo 2: 75%"></div>
-                  <div class="w-1/5 bg-galaxia-azul h-1/2 rounded-t hover:scale-y-[1.05] transition-transform duration-300" title="Nodo 3: 50%"></div>
-                  <div class="w-1/5 bg-red-500 h-1/4 rounded-t hover:scale-y-[1.05] transition-transform duration-300" title="Nodo 4: 25% - CRÍTICO"></div>
-                  <div class="w-1/5 bg-galaxia-azul h-3/5 rounded-t hover:scale-y-[1.05] transition-transform duration-300" title="Nodo 5: 60%"></div>
-              </div>
-              <div class="flex justify-between mt-2 text-xs text-blanco-nebuloso/70">
-                  <span>Nodo 1</span><span>Nodo 2</span><span>Nodo 3</span><span>Nodo 4</span><span>Nodo 5</span>
-              </div>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-      
-      <section id="escritorio-pruebas" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
-        <div class="container mx-auto px-4 py-16">
-          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-galaxia-azul mb-12 text-center">Laboratorio de Pruebas (A/B)</h2>
-          
-          <div class="max-w-4xl mx-auto space-y-8">
-              <div class="p-6 border border-galaxia-purpura rounded-lg shadow-lg bg-galaxia-oscuro/50">
-                  <h3 class="text-2xl font-montserrat font-bold mb-4 text-luz-estelar">Definición de Test A/B</h3>
-                  <p class="mb-4">Selecciona el grupo de usuarios y la versión de *feature* a desplegar.</p>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                          <label class="block mb-2 font-medium">Grupo Target:</label>
-                          <select class="w-full p-2 rounded bg-negro-espacial border border-galaxia-purpura">
-                              <option>Todos los ID BETA (25%)</option>
-                              <option>ID Específicos (Manual)</option>
-                          </select>
-                      </div>
-                      <div>
-                          <label class="block mb-2 font-medium">Versión de Feature:</label>
-                          <select class="w-full p-2 rounded bg-negro-espacial border border-galaxia-purpura">
-                              <option>Feature-Login-V2 (Experimental)</option>
-                              <option>Feature-Notificaciones-V3</option>
-                          </select>
-                      </div>
-                  </div>
-                  <button class="bg-galaxia-azul text-negro-espacial px-6 py-2 rounded-full font-bold hover:bg-luz-estelar transition-colors duration-300 mt-6">
-                      Lanzar Prueba A/B
-                  </button>
-              </div>
-
-              <div class="p-6 border border-galaxia-purpura rounded-lg shadow-lg bg-galaxia-oscuro/50">
-                  <h3 class="text-2xl font-montserrat font-bold mb-4 text-luz-estelar">Resultados Clave</h3>
-                  <p class="text-lg text-green-400">Tasa de Éxito de Conversión de la Versión A: 85%</p>
-                  <p class="text-lg text-red-500">Tasa de Éxito de Conversión de la Versión B: 62%</p>
-                  <p class="text-sm mt-4 text-yellow-400">Recomendación: Retirar Versión B y optimizar la A.</p>
-              </div>
-          </div>
-          <div class="mt-8 text-center">
-             <a href="#dashboard-inicio" class="text-galaxia-azul hover:text-luz-estelar font-medium transition-colors duration-300"><i class="fas fa-chevron-left mr-2"></i> Volver al Panel Principal</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="cuenta" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
+      <section id="cuenta" class="animated-section min-h-screen pt-20 bg-negro-espacial">
         <div class="container mx-auto px-4 py-16">
           <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-galaxia-azul">
             ADMINISTRACIÓN DE IDENTIDAD
@@ -521,14 +197,14 @@
                 <a href="#" class="hover:text-luz-estelar transition-colors duration-300">Monedero Digital: $4,500.00 USD</a>
               </li>
             </ul>
-            <button id="btnCerrarSesionCuenta" class="mt-10 bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300">
+            <button class="mt-10 bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300">
               Cerrar Sesión
             </button>
           </div>
         </div>
       </section>
 
-      <section id="configuracion" class="animated-section hidden min-h-screen pt-20 gradient-bg">
+      <section id="configuracion" class="animated-section min-h-screen pt-20 gradient-bg">
         <div class="container mx-auto px-4 py-16">
           <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
             PREFERENCIAS DE SISTEMA
@@ -556,7 +232,7 @@
         </div>
       </section>
 
-      <footer id="footer-fijo" class="fixed bottom-0 left-0 w-full py-3 z-40"> 
+      <footer class="py-12">
         <div class="container mx-auto px-4">
           <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="mb-6 md:mb-0 max-w-md text-center md:text-left">
