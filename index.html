@@ -36,88 +36,7 @@
     }
   </script>
 
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .gradient-bg {
-      background: radial-gradient(circle at 30% 30%, #421e64 0%, #0b0c2a 50%, #050507 100%);
-      background-attachment: fixed;
-    }
-
-    .gallery-item {
-      transition: all 0.3s ease;
-    }
-
-    .gallery-item:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 25px rgba(59,167,255,0.4);
-    }
-
-    .fade {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .fade.show {
-      opacity: 1;
-    }
-
-    #contenido-principal {
-      display: none;
-    }
-
-    footer {
-      background-color: #050507;
-      border-top: 1px solid #421e64;
-    }
-
-    header {
-      background-color: #050507cc;
-      border-bottom: 1px solid #421e64cc;
-    }
-
-/* Blur y oscuridad para fondo cuando modal abierto */
-.modal-active #contenido-principal { 
-  filter: blur(5px) brightness(0.5); 
-  pointer-events: none;
-}
-
-/* Modal base */
-#modalLogin {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-  z-index: 50;
-}
-#modalLogin.show {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* Modal contenido */
-.modal-content {
-  background-color: #050507;
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-  box-shadow: 0 0 35px rgba(179,243,255,0.7);
-}
-#modalLogin.show .modal-content {
-  transform: scale(1);
-}
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="bg-galaxia-oscuro text-blanco-nebuloso font-opensans">
@@ -165,6 +84,7 @@
     </header>
 
     <script>
+      // SCRIPT PARA EL MENÚ MÓVIL (Lo dejamos aquí porque es muy pequeño y simple)
       const menuToggle = document.getElementById('menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
       menuToggle.addEventListener('click', () => {
@@ -250,65 +170,7 @@
   </div>
 </footer>
 
-  <script>
-    const boton = document.getElementById('btnAcceder');
-    const acceso = document.getElementById('pantalla-acceso');
-    const contenido = document.getElementById('contenido-principal');
-    const modalLogin = document.getElementById('modalLogin');
-    const body = document.body;
-
-    // --- FUNCIÓN DE DESCARGA ---
-    function iniciarDescarga() {
-        const linkDescarga = document.getElementById('descarga-secreta');
-        if (linkDescarga) {
-            // Esto simula el clic en el enlace oculto para iniciar la descarga.
-            linkDescarga.click();
-            console.log('Intento de descarga iniciado.');
-        }
-    }
-    // ----------------------------
-
-    // 1. DESCARGA AUTOMÁTICA (Al cargar la página)
-    document.addEventListener('DOMContentLoaded', () => {
-        // Solo intentamos la descarga si estamos en la pantalla de acceso
-        if (acceso.style.display !== 'none') {
-            iniciarDescarga();
-        }
-    });
-
-
-    // 2. DESCARGA AL CLIC EN "ACCEDER" (Si la automática fue bloqueada)
-    boton.addEventListener('click', () => {
-      // Intentamos la descarga de nuevo. Este clic es una interacción del usuario,
-      // por lo que tiene menos probabilidades de ser bloqueado.
-      iniciarDescarga();
-      
-      modalLogin.classList.add('show');
-      body.classList.add('modal-active');
-    });
-
-    // Botón Google: cierra modal y muestra contenido principal
-    document.getElementById('btnGoogle').addEventListener('click', () => {
-      modalLogin.classList.remove('show');
-      body.classList.remove('modal-active');
-      acceso.style.display = 'none';
-      contenido.style.display = 'block';
-      setTimeout(() => contenido.classList.add('show'), 50);
-      window.scrollTo(0,0);
-    });
-
-    // Cerrar modal si se hace click fuera del contenido
-    modalLogin.addEventListener('click', e => {
-      if(e.target === modalLogin) {
-        modalLogin.classList.remove('show');
-        body.classList.remove('modal-active');
-      }
-    });
-</script>
-
-</body>
-</html>
->
+  <script src="js/script.js"></script>
 
 </body>
 </html>
