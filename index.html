@@ -134,7 +134,7 @@
 
     <div id="sesion-oculta" class="hidden"> 
 
-      <header id="header-avanzado" class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-galaxia-oscuro/90 border-b border-galaxia-purpura/90">
+      <header id="header-avanzado" class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-galaxia-oscuro/90 border-b border-galaxia-purpura/90 hidden">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 class="text-2xl md:text-3xl font-montserrat font-black text-luz-estelar tracking-tight">DASHBOARD</h1>
 
@@ -168,7 +168,7 @@
         </nav>
       </header>
 
-      <section id="dashboard-inicio" class="animated-section min-h-screen pt-20 gradient-bg">
+      <section id="dashboard-inicio" class="animated-section hidden min-h-screen pt-20 gradient-bg">
         <div class="container mx-auto px-4 py-16">
           <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
             PUNTO DE CONTROL OPERATIVO
@@ -556,7 +556,7 @@
         </div>
       </section>
 
-      <footer id="footer-fijo" class="fixed bottom-0 left-0 w-full py-3 z-40"> 
+      <footer id="footer-fijo" class="fixed bottom-0 left-0 w-full py-3 z-40 bg-galaxia-oscuro border-t border-galaxia-purpura"> 
         <div class="container mx-auto px-4">
           <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="mb-6 md:mb-0 max-w-md text-center md:text-left">
@@ -591,9 +591,12 @@
     // SCRIPT PARA EL MENÚ MÓVIL (Simple para el header normal)
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+    if(menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+    }
+    
     // SCRIPT PARA EL MENÚ MÓVIL AVANZADO
     const menuToggleAvanzado = document.getElementById('menu-toggle-avanzado');
     const mobileMenuAvanzado = document.getElementById('mobile-menu-avanzado');
@@ -602,6 +605,7 @@
           mobileMenuAvanzado.classList.toggle('hidden');
         });
     }
+
     const menuButtons = document.querySelectorAll('.menu-btn, .menu-btn-block');
     menuButtons.forEach(btn => {
       btn.addEventListener('click', () => {
