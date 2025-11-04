@@ -35,6 +35,50 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar el tema basado en el atributo data-theme
     const currentTheme = body.getAttribute('data-theme') || 'dark';
     updateThemeUI(currentTheme);
+
+    // OCULTAR todas las secciones del dashboard al inicio, excepto #dashboard-inicio
+    if (sesionOculta) {
+        const dashboardSections = sesionOculta.querySelectorAll('section');
+        dashboardSections.forEach(section => {
+            if (section.id !== 'dashboard-inicio') {
+                section.classList.add('hidden');
+            }
+        });
+    }
+});
+
+
+// --- LÓGICA DE NAVEGACIÓN DEL DASHBOARD ---
+
+function navigateDashboard(targetId) {
+    // 1. Ocultar todas las secciones del dashboard
+    const dashboardSections = sesionOculta.querySelectorAll('section');
+    dashboardSections.forEach(section => {
+        section.classList.add('hidden');
+    });
+
+    // 2. Mostrar la sección destino
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+        
+        // 3. Scroll suave al inicio de la sección
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Escuchar clics en el header avanzado
+document.addEventListener('click', (e) => {
+    // Buscar si el clic fue en un enlace del header avanzado
+    const link = e.target.closest('#header-avanzado a');
+    if (link) {
+        const hash = link.getAttribute('href');
+        // Solo navega si el hash apunta a una sección dentro del dashboard
+        if (hash === '#dashboard-inicio' || hash === '#cuenta' || hash === '#configuracion') {
+            e.preventDefault(); // Detiene el scroll nativo
+            navigateDashboard(hash.substring(1)); // Llama a la función de navegación (sin el #)
+        }
+    }
 });
 
 
@@ -76,7 +120,7 @@ modalLogin.addEventListener('click', e => {
 });
 
 
-// *** NUEVA LÓGICA: BOTÓN EXPLORAR (Entrar a la Sesión Oculta) ***
+// *** LÓGICA: BOTÓN EXPLORAR (Entrar a la Sesión Oculta) ***
 if (btnExplorar && sesionOculta) {
     btnExplorar.addEventListener('click', (e) => {
         e.preventDefault();
