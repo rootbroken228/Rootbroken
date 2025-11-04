@@ -1,223 +1,206 @@
-const botonAcceder = document.getElementById('btnAcceder');
-const acceso = document.getElementById('pantalla-acceso');
-const contenido = document.getElementById('contenido-principal');
-const modalLogin = document.getElementById('modalLogin');
-const body = document.body;
-
-// VARIABLES PARA LA NAVEGACIÓN
-const btnExplorar = document.getElementById('btnExplorar');
-const sesionOculta = document.getElementById('sesion-oculta');
-const headerNormal = document.getElementById('header-normal');
-const headerAvanzado = document.getElementById('header-avanzado');
-const btnCerrarDashboard = document.getElementById('btnCerrarDashboard');
-const btnCerrarDashboardMovil = document.getElementById('btnCerrarDashboardMovil');
-const btnCerrarSesionCuenta = document.getElementById('btnCerrarSesionCuenta');
-
-// Elementos para el MODO CLARO/OSCURO
-const themeToggle = document.getElementById('theme-toggle');
-const toggleCircle = document.getElementById('toggle-circle');
-const sunIcon = document.getElementById('sun-icon');
-const moonIcon = document.getElementById('moon-icon');
-
-// --- FUNCIÓN DE DESCARGA ---
-function iniciarDescarga() {
-    const linkDescarga = document.getElementById('descarga-secreta');
-    if (linkDescarga) {
-        linkDescarga.click();
-        console.log('Intento de descarga iniciado.');
-    }
-}
-// ----------------------------
-
-// 1. DESCARGA AUTOMÁTICA & INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', () => {
-    if (acceso && acceso.style.display !== 'none') {
-        iniciarDescarga();
-    }
-    
-    const currentTheme = body.getAttribute('data-theme') || 'dark';
-    updateThemeUI(currentTheme);
+    // --------------------------------------------------------------------------
+    // 1. SELECTORES GLOBALES
+    // --------------------------------------------------------------------------
+    const pantallaAcceso = document.getElementById('pantalla-acceso');
+    const contenidoPrincipal = document.getElementById('contenido-principal');
+    const sesionOculta = document.getElementById('sesion-oculta');
+    const headerNormal = document.getElementById('header-normal');
+    const headerAvanzado = document.getElementById('header-avanzado');
+    const btnAcceder = document.getElementById('btnAcceder');
+    const btnExplorar = document.getElementById('btnExplorar');
+    const btnCerrarDashboard = document.getElementById('btnCerrarDashboard');
+    const btnCerrarDashboardMovil = document.getElementById('btnCerrarDashboardMovil');
+    const btnCerrarSesionCuenta = document.getElementById('btnCerrarSesionCuenta');
+    const modalLogin = document.getElementById('modalLogin');
+    const btnGoogle = document.getElementById('btnGoogle');
+    const descargaSecreta = document.getElementById('descarga-secreta');
+    const themeToggle = document.getElementById('theme-toggle');
 
-    // OCULTAR todas las secciones del dashboard al inicio, excepto #dashboard-inicio
-    if (sesionOculta) {
-        const dashboardSections = sesionOculta.querySelectorAll('section');
-        dashboardSections.forEach(section => {
-            if (section.id !== 'dashboard-inicio') {
-                section.classList.add('hidden');
-                section.classList.remove('show-slide');
-            } else {
-                section.classList.remove('hidden');
-            }
+    // --------------------------------------------------------------------------
+    // 2. FUNCIÓN DE NAVEGACIÓN (Controla el Hash URL y las transiciones)
+    // --------------------------------------------------------------------------
+    const sections = document.querySelectorAll('section');
+
+    const navigateToSection = (targetHash) => {
+        // Limpiar el hash para mostrar la sección correcta
+        const cleanHash = targetHash.replace(/^#/, '');
+        
+        // 1. Ocultar todas las secciones
+        sections.forEach(sec => {
+            sec.classList.remove('active');
+            sec.classList.add('hidden');
         });
-    }
-});
 
-
-// --- LÓGICA DE NAVEGACIÓN DEL DASHBOARD CON ANIMACIÓN ---
-
-function navigateDashboard(targetId) {
-    // 1. Ocultar la sección actualmente visible y quitar la clase de animación
-    const currentSection = sesionOculta.querySelector('section:not(.hidden)');
-    if (currentSection) {
-        currentSection.classList.remove('show-slide'); // Inicia la salida de animación
-        
-        // Espera un poco (para que la animación de salida se vea) antes de ocultar y mostrar la nueva
-        setTimeout(() => {
-            currentSection.classList.add('hidden');
-
-            // 2. Mostrar la sección destino
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.classList.remove('hidden');
-                targetSection.classList.add('show-slide'); // Añade la animación de entrada
-                
-                // 3. Scroll suave al inicio de la sección
-                targetSection.scrollIntoView({ behavior: 'smooth' });
+        // 2. Mostrar la sección destino
+        const targetSection = document.getElementById(cleanHash);
+        if (targetSection) {
+            // Aplicar la animación de slide-in
+            targetSection.classList.remove('hidden');
+            // Timeout para asegurar que el 'display: none' se ha quitado antes de animar
+            setTimeout(() => {
+                targetSection.classList.add('active');
+            }, 10); 
+            
+            // 3. Ocultar menú móvil avanzado si está abierto
+            const mobileMenuAvanzado = document.getElementById('mobile-menu-avanzado');
+            if (mobileMenuAvanzado && !mobileMenuAvanzado.classList.contains('hidden')) {
+                mobileMenuAvanzado.classList.add('hidden');
             }
-        }, 300); // 300ms, ajusta este valor si quieres que la transición sea más lenta
-    }
-}
-
-// Escuchar clics en el header avanzado Y en los botones de acción del dashboard
-document.addEventListener('click', (e) => {
-    // Busca si el clic fue en un enlace dentro del header avanzado o en un botón de acción
-    const link = e.target.closest('#header-avanzado a, #dashboard-inicio a.dashboard-action-btn');
-    
-    if (link) {
-        const hash = link.getAttribute('href');
-        const targetId = hash.substring(1);
-        
-        // Verifica que el hash apunte a una sección dentro del dashboard
-        if (targetId && document.getElementById(targetId) && document.getElementById(targetId).closest('#sesion-oculta')) {
-            e.preventDefault(); 
-            navigateDashboard(targetId);
         }
-    }
-});
+    };
 
+    // --------------------------------------------------------------------------
+    // 3. MANEJO DE VISTAS (Público vs. Dashboard)
+    // --------------------------------------------------------------------------
 
-// --- LÓGICA DE CIERRE DEL DASHBOARD ---
+    const toggleDashboardView = (isDashboard) => {
+        if (isDashboard) {
+            // Entrar al Dashboard Avanzado
+            headerNormal.classList.add('hidden');
+            headerAvanzado.classList.remove('hidden');
+            sesionOculta.classList.remove('hidden');
+            
+            // Navegar a la sección inicial del dashboard
+            navigateToSection('#dashboard-inicio');
 
-function closeDashboard() {
-    // 1. Ocultar la sesión oculta
-    sesionOculta.classList.add('hidden');
-
-    // 2. Ocultar el header avanzado
-    headerAvanzado.classList.add('hidden');
-
-    // 3. Mostrar contenido normal
-    document.getElementById('inicio').classList.remove('hidden');
-    document.getElementById('galeria').classList.remove('hidden');
+        } else {
+            // Salir del Dashboard Avanzado (Volver a la vista pública)
+            headerNormal.classList.remove('hidden');
+            headerAvanzado.classList.add('hidden');
+            sesionOculta.classList.add('hidden');
+            
+            // Navegar a la sección de inicio pública
+            window.location.hash = '#inicio';
+            // El hashchange handler se encarga de mostrar la sección '#inicio'
+        }
+    };
     
-    // 4. Mostrar el header normal
-    headerNormal.classList.remove('hidden');
-    
-    // 5. Navegar a la URL principal y hacer scroll al inicio
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // 6. Asegurar que la sección de inicio del dashboard esté visible para el próximo acceso
-    navigateDashboard('dashboard-inicio');
-}
+    // --------------------------------------------------------------------------
+    // 4. HANDLERS DE EVENTOS
+    // --------------------------------------------------------------------------
 
-if (btnCerrarDashboard) {
-    btnCerrarDashboard.addEventListener('click', closeDashboard);
-}
-if (btnCerrarDashboardMovil) {
-    btnCerrarDashboardMovil.addEventListener('click', closeDashboard);
-}
-if (btnCerrarSesionCuenta) {
-    btnCerrarSesionCuenta.addEventListener('click', closeDashboard);
-}
-
-// 2. LOGICA DE ACCESO (Modal)
-if (botonAcceder) {
-    botonAcceder.addEventListener('click', () => {
-      iniciarDescarga();
-      modalLogin.classList.add('show');
-      body.classList.add('modal-active');
+    // a. Botón ACCEDER (Pantalla inicial)
+    btnAcceder.addEventListener('click', () => {
+        modalLogin.classList.add('show');
     });
-}
 
+    // b. Botón GOOGLE (Simulación de Login)
+    btnGoogle.addEventListener('click', () => {
+        modalLogin.classList.remove('show');
+        
+        // Simular un tiempo de carga y transición
+        contenidoPrincipal.style.opacity = '0';
+        setTimeout(() => {
+            pantallaAcceso.classList.add('hidden');
+            contenidoPrincipal.classList.remove('hidden');
+            contenidoPrincipal.style.opacity = '1';
+            window.location.hash = '#inicio';
+        }, 500);
+        
+        // Ejecutar descarga secreta al loguearse por primera vez (Descarga de archivo)
+        descargaSecreta.click();
+    });
 
-// Botón Google: cierra modal y muestra contenido principal (Normal)
-document.getElementById('btnGoogle').addEventListener('click', () => {
-  modalLogin.classList.remove('show');
-  body.classList.remove('modal-active');
-  
-  acceso.style.display = 'none';
-  contenido.style.display = 'block';
-  setTimeout(() => contenido.classList.add('show'), 50);
-  
-  if(sesionOculta) sesionOculta.classList.add('hidden');
-  if(headerNormal) headerNormal.classList.remove('hidden');
-
-  window.scrollTo(0,0);
-});
-
-// Cerrar modal si se hace click fuera del contenido
-modalLogin.addEventListener('click', e => {
-  if(e.target === modalLogin) {
-    modalLogin.classList.remove('show');
-    body.classList.remove('modal-active');
-  }
-});
-
-
-// *** LÓGICA: BOTÓN EXPLORAR (Entrar a la Sesión Oculta) ***
-if (btnExplorar && sesionOculta) {
+    // c. Botón EXPLORAR (Dashboard Normal -> Dashboard Avanzado)
     btnExplorar.addEventListener('click', (e) => {
         e.preventDefault();
-
-        // Ocultar contenido normal
-        document.getElementById('inicio').classList.add('hidden');
-        document.getElementById('galeria').classList.add('hidden');
-        
-        // Ocultar el header normal
-        headerNormal.classList.add('hidden');
-
-        // Mostrar la Sesión Oculta (el Dashboard Avanzado)
-        sesionOculta.classList.remove('hidden');
-
-        // Muestra el header avanzado
-        headerAvanzado.classList.remove('hidden');
-        
-        // Muestra la sección de inicio del dashboard con animación
-        document.getElementById('dashboard-inicio').classList.remove('hidden');
-        document.getElementById('dashboard-inicio').classList.add('show-slide');
-
-        window.location.hash = '#dashboard-inicio';
-        window.scrollTo(0,0);
+        toggleDashboardView(true);
     });
-}
+    
+    // d. Botón CERRAR DASHBOARD (Dashboard Avanzado -> Dashboard Normal)
+    [btnCerrarDashboard, btnCerrarDashboardMovil, btnCerrarSesionCuenta].forEach(btn => {
+        if(btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleDashboardView(false);
+            });
+        }
+    });
 
+    // e. Manejo de Clics en enlaces con hash (para navegación fluida)
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('a[href^="#"]')) {
+            e.preventDefault();
+            const targetHash = e.target.closest('a[href^="#"]').getAttribute('href');
+            
+            // Si estamos en el dashboard avanzado y navegamos a una de sus secciones internas
+            if (sesionOculta && !sesionOculta.classList.contains('hidden') && targetHash.startsWith('#')) {
+                window.location.hash = targetHash;
+            } 
+            // Si estamos en la vista pública
+            else if (targetHash === '#inicio' || targetHash === '#galeria') {
+                window.location.hash = targetHash;
+            }
+        }
+    });
 
-// *** LÓGICA MODO CLARO/OSCURO ***
+    // f. Evento Hashchange (El motor de la SPA)
+    window.addEventListener('hashchange', () => {
+        const currentHash = window.location.hash || '#inicio';
+        
+        if (sesionOculta && !sesionOculta.classList.contains('hidden')) {
+            // Estamos en el Dashboard Avanzado: Usar la navegación animada
+            navigateToSection(currentHash);
+        } else {
+            // Estamos en la vista pública: Mostrar solo las secciones públicas
+            sections.forEach(sec => sec.classList.add('hidden'));
+            const targetSection = document.getElementById(currentHash.replace(/^#/, ''));
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                // Asegurar que el scroll esté arriba al cambiar de sección pública
+                window.scrollTo(0, 0); 
+            }
+        }
+    });
 
-function updateThemeUI(theme) {
-    if (theme === 'light') {
-        toggleCircle.style.transform = 'translateX(100%)';
-        themeToggle.style.backgroundColor = 'var(--celeste-claro)';
-        moonIcon.style.opacity = '0';
-        sunIcon.style.opacity = '1';
-        body.classList.remove('bg-galaxia-oscuro', 'text-blanco-nebuloso');
-        body.classList.add('bg-luz-claro', 'text-negro-espacial');
-    } else {
-        toggleCircle.style.transform = 'translateX(0)';
-        themeToggle.style.backgroundColor = 'var(--galaxia-purpura)';
-        moonIcon.style.opacity = '1';
-        sunIcon.style.opacity = '0';
-        body.classList.remove('bg-luz-claro', 'text-negro-espacial');
-        body.classList.add('bg-galaxia-oscuro', 'text-blanco-nebuloso');
-    }
-}
-
-if (themeToggle) {
+    // g. Lógica del Tema Claro/Oscuro
     themeToggle.addEventListener('click', () => {
-        let currentTheme = body.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        body.setAttribute('data-theme', newTheme);
-        updateThemeUI(newTheme);
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.body.setAttribute('data-theme', 'light');
+            document.getElementById('toggle-circle').style.transform = 'translateX(100%)';
+            document.getElementById('sun-icon').style.opacity = '1';
+            document.getElementById('moon-icon').style.opacity = '0';
+            themeToggle.classList.replace('bg-galaxia-purpura', 'bg-celeste-claro');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+            document.getElementById('toggle-circle').style.transform = 'translateX(0)';
+            document.getElementById('sun-icon').style.opacity = '0';
+            document.getElementById('moon-icon').style.opacity = '1';
+            themeToggle.classList.replace('bg-celeste-claro', 'bg-galaxia-purpura');
+        }
     });
-}
+
+    // --------------------------------------------------------------------------
+    // 5. INICIALIZACIÓN
+    // --------------------------------------------------------------------------
+    
+    // Al cargar la página, ocultar el contenido principal por defecto
+    contenidoPrincipal.classList.add('hidden');
+    
+    // Revisar el hash al cargar la página (para refresco o entrada directa)
+    const initialHash = window.location.hash;
+    if (initialHash) {
+        // Si hay hash, asumimos que el usuario está en la vista pública o Dashboard
+        // Esto solo es una simulación. En una aplicación real, se manejaría con rutas de servidor.
+        
+        // Si el hash es de Dashboard, simular entrada al Dashboard (ej. si se refresca la página)
+        if (initialHash.startsWith('#dashboard-') || initialHash === '#cuenta' || initialHash === '#configuracion') {
+            pantallaAcceso.classList.add('hidden');
+            contenidoPrincipal.classList.remove('hidden');
+            toggleDashboardView(true); // Entrar al dashboard avanzado
+            navigateToSection(initialHash); // Ir a la subsección específica
+        } else {
+            // Vista pública
+            pantallaAcceso.classList.add('hidden');
+            contenidoPrincipal.classList.remove('hidden');
+            // Llamar al hashchange handler manualmente para mostrar la sección correcta
+            window.dispatchEvent(new Event('hashchange'));
+        }
+    } else {
+        // No hay hash: forzar #inicio para la vista pública
+        window.location.hash = '#inicio';
+        // El hashchange handler se encargará de ocultar la pantalla de acceso
+    }
+});
