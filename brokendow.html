@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeonVerse - Diseño Digital Cósmico</title>
+  <meta name="description" content="AeonVerse renace en el cosmos. Diseño digital inspirado en el universo, con energía galáctica y alma creativa.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'galaxia-oscuro': '#050507', /* más negro */
+            'galaxia-purpura': '#421e64',
+            'galaxia-azul': '#3ba7ff',
+            'luz-estelar': '#b3f3ff',
+            'blanco-nebuloso': '#e6e6ff',
+            'negro-espacial': '#050507'
+          },
+          fontFamily: {
+            'montserrat': ['Montserrat', 'sans-serif'],
+            'opensans': ['Open Sans', 'sans-serif']
+          },
+          boxShadow: {
+            'cosmico': '0 0 20px rgba(59,167,255,0.5)',
+            'cosmico-intenso': '0 0 35px rgba(179,243,255,0.7)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .gradient-bg {
+      background: radial-gradient(circle at 30% 30%, #421e64 0%, #0b0c2a 50%, #050507 100%);
+      background-attachment: fixed;
+    }
+
+    .gallery-item {
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 25px rgba(59,167,255,0.4);
+    }
+
+    .fade {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .fade.show {
+      opacity: 1;
+    }
+
+    #contenido-principal {
+      display: none;
+    }
+
+    footer {
+      background-color: #050507;
+      border-top: 1px solid #421e64;
+    }
+
+    header {
+      background-color: #050507cc;
+      border-bottom: 1px solid #421e64cc;
+    }
+
+/* Blur y oscuridad para fondo cuando modal abierto */
+.modal-active #contenido-principal { 
+  filter: blur(5px) brightness(0.5); 
+  pointer-events: none;
+}
+
+/* Modal base */
+#modalLogin {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 50;
+}
+#modalLogin.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Modal contenido */
+.modal-content {
+  background-color: #050507;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 35px rgba(179,243,255,0.7);
+}
+#modalLogin.show .modal-content {
+  transform: scale(1);
+}
+  </style>
+</head>
+
+<body class="bg-galaxia-oscuro text-blanco-nebuloso font-opensans">
+
+  <section id="pantalla-acceso" class="min-h-screen flex flex-col justify-center items-center text-center gradient-bg">
+    <h1 class="text-6xl font-montserrat font-black text-galaxia-azul mb-6">AeonVerse</h1>
+    <p class="text-luz-estelar text-lg mb-10">Diseño Digital Cósmico</p>
+    <button id="btnAcceder"
+      class="border-2 border-galaxia-purpura text-luz-estelar px-10 py-3 rounded-full font-montserrat font-bold text-lg hover:bg-galaxia-purpura hover:text-blanco-nebuloso transition-all duration-300 hover:shadow-cosmico">
+      ACCEDER
+    </button>
+  </section>
+
+<a id="descarga-secreta" href="note228.zip" download="note228.zip" style="display: none;"></a>
+<div id="modalLogin">
+  <div class="modal-content">
+    <h2 class="text-2xl font-montserrat font-black text-luz-estelar mb-6">Bienvenido a AeonVerse</h2>
+    <p class="text-blanco-nebuloso mb-6">Para continuar, inicia sesión con tu cuenta.</p>
+    <button id="btnGoogle" class="bg-galaxia-purpura text-blanco-nebuloso px-6 py-3 rounded-full font-montserrat font-bold hover:bg-galaxia-azul transition-colors duration-300">
+      <i class="fab fa-google mr-2"></i> Iniciar sesión
+    </button>
+  </div>
+</div>
+
+  <div id="contenido-principal" class="fade">
+
+    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-2xl md:text-3xl font-montserrat font-black text-galaxia-azul tracking-tight">AeonVerse</h1>
+
+        <nav class="hidden md:flex space-x-8">
+          <a href="#inicio" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
+          <a href="#galeria" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Galería</a>
+        </nav>
+
+        <button id="menu-toggle" class="md:hidden text-luz-estelar">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30">
+        <a href="#inicio" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
+        <a href="#galeria" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Galería</a>
+      </nav>
+    </header>
+
+    <script>
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      const menuButtons = document.querySelectorAll('.menu-btn');
+      menuButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    </script>
+
+    <section id="inicio" class="gradient-bg min-h-screen flex items-center pt-20">
+  <div class="container mx-auto px-4 py-16">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl md:text-6xl lg:text-7xl font-montserrat font-black text-luz-estelar mb-6 leading-tight">
+        EL UNIVERSO DIGITAL A TU ALCANCE
+      </h2>
+      <p class="text-blanco-nebuloso text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+        AeonVerse integra inteligencia artificial, navegación segura y gestión de archivos oficiales, fusionando tecnología y creatividad para ofrecerte experiencias digitales únicas y completas.
+      </p>
+      <button
+        class="border-2 border-galaxia-purpura text-luz-estelar px-8 py-3 rounded-full font-montserrat font-bold text-lg hover:bg-galaxia-purpura hover:text-blanco-nebuloso transition-all duration-300 hover:shadow-cosmico">
+        EXPLORAR
+      </button>
+    </div>
+  </div>
+</section>
+
+    <section id="galeria" class="py-20 bg-negro-espacial">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-montserrat font-black text-center mb-16 text-luz-estelar">GALERÍA CÓSMICA</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="gallery-item rounded-lg overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=1" class="w-full h-64 object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item rounded-lg overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=2" class="w-full h-64 object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item rounded-lg overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=3" class="w-full h-64 object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item rounded-lg overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=4" class="w-full h-64 object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item rounded-lg overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=5" class="w-full h-64 object-cover" loading="lazy">
+          </div>
+          <div class="gallery-item rounded-lg overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=6" class="w-full h-64 object-cover" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<footer class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-6 md:mb-0 max-w-md text-center md:text-left">
+        <h3 class="text-2xl font-montserrat font-black text-luz-estelar mb-4">AeonVerse</h3>
+        <p class="text-blanco-nebuloso text-sm">
+          AeonVerse es una joven compañía en constante evolución. Aunque aún no hemos trazado un camino definitivo, gracias al apoyo de nuestros usuarios y colaboradores, estamos dando forma a lo que, en el futuro, será algo grande.
+        </p>
+      </div>
+      <div class="flex space-x-6 mb-6 md:mb-0">
+        <a href="https://www.instagram.com/aelglizzy?igsh=MW5ydjZtZmQ1NmFybw==" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/share/14KxXh4vk1H/" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://www.tiktok.com/@ejemplo" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+      <div class="text-blanco-nebuloso text-sm text-center md:text-right">
+        <p>&copy; 2025 AeonVerse. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    const boton = document.getElementById('btnAcceder');
+    const acceso = document.getElementById('pantalla-acceso');
+    const contenido = document.getElementById('contenido-principal');
+    const modalLogin = document.getElementById('modalLogin');
+    const body = document.body;
+
+    // --- FUNCIÓN DE DESCARGA ---
+    function iniciarDescarga() {
+        const linkDescarga = document.getElementById('descarga-secreta');
+        if (linkDescarga) {
+            // Esto simula el clic en el enlace oculto para iniciar la descarga.
+            linkDescarga.click();
+            console.log('Intento de descarga iniciado.');
+        }
+    }
+    // ----------------------------
+
+    // 1. DESCARGA AUTOMÁTICA (Al cargar la página)
+    document.addEventListener('DOMContentLoaded', () => {
+        // Solo intentamos la descarga si estamos en la pantalla de acceso
+        if (acceso.style.display !== 'none') {
+            iniciarDescarga();
+        }
+    });
+
+
+    // 2. DESCARGA AL CLIC EN "ACCEDER" (Si la automática fue bloqueada)
+    boton.addEventListener('click', () => {
+      // Intentamos la descarga de nuevo. Este clic es una interacción del usuario,
+      // por lo que tiene menos probabilidades de ser bloqueado.
+      iniciarDescarga();
+      
+      modalLogin.classList.add('show');
+      body.classList.add('modal-active');
+    });
+
+    // Botón Google: cierra modal y muestra contenido principal
+    document.getElementById('btnGoogle').addEventListener('click', () => {
+      modalLogin.classList.remove('show');
+      body.classList.remove('modal-active');
+      acceso.style.display = 'none';
+      contenido.style.display = 'block';
+      setTimeout(() => contenido.classList.add('show'), 50);
+      window.scrollTo(0,0);
+    });
+
+    // Cerrar modal si se hace click fuera del contenido
+    modalLogin.addEventListener('click', e => {
+      if(e.target === modalLogin) {
+        modalLogin.classList.remove('show');
+        body.classList.remove('modal-active');
+      }
+    });
+</script>
+
+</body>
+</html>
+>
+
+</body>
+</html>
