@@ -81,7 +81,7 @@
         </button>
       </div>
 
-      <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30">
+      <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30 bg-negro-espacial/90 min-w-[200px]">
         <a href="#inicio" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
         <a href="#galeria" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Recursos</a>
       </nav>
@@ -138,15 +138,27 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 class="text-2xl md:text-3xl font-montserrat font-black text-luz-estelar tracking-tight">DASHBOARD</h1>
 
-          <nav class="hidden md:flex space-x-8">
+          <nav class="hidden md:flex space-x-8 items-center">
             <a href="#dashboard-inicio" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
             <a href="#cuenta" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Cuenta</a>
             <a href="#configuracion" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Configuración</a>
+            
+            <button id="btnCerrarDashboard"
+                class="bg-galaxia-azul text-negro-espacial px-4 py-2 rounded-full font-montserrat font-bold text-sm hover:bg-luz-estelar transition-colors duration-300 ml-4">
+                Cerrar <i class="fas fa-sign-out-alt ml-1"></i>
+            </button>
           </nav>
 
-          <button id="menu-toggle-avanzado" class="md:hidden text-luz-estelar">
-            <i class="fas fa-bars text-xl"></i>
-          </button>
+          <div class="md:hidden flex items-center space-x-4">
+            <button id="btnCerrarDashboardMovil"
+                class="bg-galaxia-azul text-negro-espacial px-3 py-1.5 rounded-full font-montserrat font-bold text-xs hover:bg-luz-estelar transition-colors duration-300">
+                Cerrar <i class="fas fa-sign-out-alt ml-1"></i>
+            </button>
+            
+            <button id="menu-toggle-avanzado" class="text-luz-estelar">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
         </div>
 
         <nav id="mobile-menu-avanzado" class="md:hidden hidden flex-col space-y-3 p-3 absolute right-4 top-16 rounded-xl border border-galaxia-purpura/30 bg-negro-espacial/90 min-w-[200px]">
@@ -164,24 +176,87 @@
 
           <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">MÓVILES (ANDROID)</h3>
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
-            <button class="menu-option"><i class="fas fa-plus text-3xl mb-2"></i> Crear ID</button>
-            <button class="menu-option"><i class="fas fa-question-circle text-3xl mb-2"></i> Soporte</button>
-            <button class="menu-option"><i class="fas fa-download text-3xl mb-2"></i> Almacén</button>
-            <button class="menu-option"><i class="fas fa-sticky-note text-3xl mb-2"></i> Logs</button>
+            <a href="#movil-crear-id" class="dashboard-action-btn"><i class="fas fa-plus text-3xl mb-2"></i> Crear ID</a>
+            <a href="#movil-soporte" class="dashboard-action-btn"><i class="fas fa-question-circle text-3xl mb-2"></i> Soporte</a>
+            <a href="#movil-almacen" class="dashboard-action-btn"><i class="fas fa-download text-3xl mb-2"></i> Almacén</a>
+            <a href="#movil-logs" class="dashboard-action-btn"><i class="fas fa-sticky-note text-3xl mb-2"></i> Logs</a>
           </div>
 
           <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">ESCRITORIO (PC/MAC)</h3>
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            <button class="menu-option"><i class="fas fa-cube text-3xl mb-2"></i> Herramientas</button>
-            <button class="menu-option"><i class="fas fa-code text-3xl mb-2"></i> Terminal</button>
-            <button class="menu-option"><i class="fas fa-history text-3xl mb-2"></i> Historial</button>
-            <button class="menu-option"><i class="fas fa-network-wired text-3xl mb-2"></i> Conexión</button>
-            <button class="menu-option"><i class="fas fa-vial text-3xl mb-2"></i> Pruebas A/B</button>
+            <a href="#escritorio-herramientas" class="dashboard-action-btn"><i class="fas fa-cube text-3xl mb-2"></i> Herramientas</a>
+            <a href="#escritorio-terminal" class="dashboard-action-btn"><i class="fas fa-code text-3xl mb-2"></i> Terminal</a>
+            <a href="#escritorio-historial" class="dashboard-action-btn"><i class="fas fa-history text-3xl mb-2"></i> Historial</a>
+            <a href="#escritorio-conexion" class="dashboard-action-btn"><i class="fas fa-network-wired text-3xl mb-2"></i> Conexión</a>
+            <a href="#escritorio-pruebas" class="dashboard-action-btn"><i class="fas fa-vial text-3xl mb-2"></i> Pruebas A/B</a>
           </div>
         </div>
       </section>
 
-      <section id="cuenta" class="animated-section min-h-screen pt-20 bg-negro-espacial">
+      <section id="movil-crear-id" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-galaxia-azul mb-8">Gestión: Crear ID</h2>
+          <p class="text-xl max-w-2xl mx-auto">Módulo para la generación segura y el aprovisionamiento de nuevas identidades digitales para dispositivos móviles.</p>
+        </div>
+      </section>
+      
+      <section id="movil-soporte" class="animated-section hidden min-h-screen pt-20 gradient-bg">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-luz-estelar mb-8">Centro de Soporte Móvil</h2>
+          <p class="text-xl max-w-2xl mx-auto">Acceso directo a documentación, FAQs y canal de asistencia técnica para incidentes en la plataforma Android.</p>
+        </div>
+      </section>
+      
+      <section id="movil-almacen" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-galaxia-azul mb-8">Almacén de Archivos Digitales</h2>
+          <p class="text-xl max-w-2xl mx-auto">Repositorio centralizado para descargas seguras, actualizaciones de firmware y distribución de parches oficiales.</p>
+        </div>
+      </section>
+      
+      <section id="movil-logs" class="animated-section hidden min-h-screen pt-20 gradient-bg">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-luz-estelar mb-8">Registro de Actividad (Logs)</h2>
+          <p class="text-xl max-w-2xl mx-auto">Visualización y análisis de los logs de auditoría y rendimiento generados por los dispositivos en campo.</p>
+        </div>
+      </section>
+
+      <section id="escritorio-herramientas" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-galaxia-azul mb-8">Módulo de Herramientas de Desarrollo</h2>
+          <p class="text-xl max-w-2xl mx-auto">Conjunto de utilidades de desarrollo e implementación, incluyendo compiladores y simuladores de entorno.</p>
+        </div>
+      </section>
+      
+      <section id="escritorio-terminal" class="animated-section hidden min-h-screen pt-20 gradient-bg">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-luz-estelar mb-8">Terminal de Comando Directo</h2>
+          <p class="text-xl max-w-2xl mx-auto">Acceso seguro a la línea de comandos de los servidores de gestión para operaciones de alto nivel.</p>
+        </div>
+      </section>
+      
+      <section id="escritorio-historial" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-galaxia-azul mb-8">Historial de Operaciones Críticas</h2>
+          <p class="text-xl max-w-2xl mx-auto">Revisión detallada de todas las acciones de modificación o borrado ejecutadas por el equipo en el sistema.</p>
+        </div>
+      </section>
+      
+      <section id="escritorio-conexion" class="animated-section hidden min-h-screen pt-20 gradient-bg">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-luz-estelar mb-8">Monitor de Conexión y Red</h2>
+          <p class="text-xl max-w-2xl mx-auto">Panel de monitoreo en tiempo real de la latencia, tráfico y estado de los nodos de la red privada.</p>
+        </div>
+      </section>
+      
+      <section id="escritorio-pruebas" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
+        <div class="container mx-auto px-4 py-16 text-center">
+          <h2 class="text-5xl font-montserrat font-black text-galaxia-azul mb-8">Laboratorio de Pruebas (A/B)</h2>
+          <p class="text-xl max-w-2xl mx-auto">Entorno controlado para la ejecución de pruebas de concepto y validación de nuevas funcionalidades de software.</p>
+        </div>
+      </section>
+
+      <section id="cuenta" class="animated-section hidden min-h-screen pt-20 bg-negro-espacial">
         <div class="container mx-auto px-4 py-16">
           <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-galaxia-azul">
             ADMINISTRACIÓN DE IDENTIDAD
@@ -197,14 +272,14 @@
                 <a href="#" class="hover:text-luz-estelar transition-colors duration-300">Monedero Digital: $4,500.00 USD</a>
               </li>
             </ul>
-            <button class="mt-10 bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300">
+            <button id="btnCerrarSesionCuenta" class="mt-10 bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300">
               Cerrar Sesión
             </button>
           </div>
         </div>
       </section>
 
-      <section id="configuracion" class="animated-section min-h-screen pt-20 gradient-bg">
+      <section id="configuracion" class="animated-section hidden min-h-screen pt-20 gradient-bg">
         <div class="container mx-auto px-4 py-16">
           <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
             PREFERENCIAS DE SISTEMA
