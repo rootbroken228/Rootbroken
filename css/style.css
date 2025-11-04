@@ -1,0 +1,80 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.gradient-bg {
+  background: radial-gradient(circle at 30% 30%, #421e64 0%, #0b0c2a 50%, #050507 100%);
+  background-attachment: fixed;
+}
+
+.gallery-item {
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(59,167,255,0.4);
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.fade.show {
+  opacity: 1;
+}
+
+#contenido-principal {
+  display: none;
+}
+
+footer {
+  background-color: #050507;
+  border-top: 1px solid #421e64;
+}
+
+header {
+  background-color: #050507cc;
+  border-bottom: 1px solid #421e64cc;
+}
+
+/* Blur y oscuridad para fondo cuando modal abierto */
+.modal-active #contenido-principal { 
+  filter: blur(5px) brightness(0.5); 
+  pointer-events: none;
+}
+
+/* Modal base */
+#modalLogin {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 50;
+}
+#modalLogin.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Modal contenido */
+.modal-content {
+  background-color: #050507;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 35px rgba(179,243,255,0.7);
+}
+#modalLogin.show .modal-content {
+  transform: scale(1);
+}
