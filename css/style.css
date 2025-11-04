@@ -52,7 +52,7 @@ body[data-theme="light"] .gradient-bg {
 }
 
 /* ========================================================== */
-/* ANIMACIONES (SLIDE-IN)                  */
+/* ANIMACIONES (SLIDE-IN) - CORREGIDO PARA EL BUG             */
 /* ========================================================== */
 
 /* Definición de la animación de entrada */
@@ -67,16 +67,23 @@ body[data-theme="light"] .gradient-bg {
     }
 }
 
+/* Ocultar secciones por defecto y durante la transición */
+/* IMPORTANTE: Mantiene el elemento fuera del flujo y sin visibilidad */
+.animated-section.hidden {
+    display: none !important;
+}
+/* Prepara el elemento que va a entrar (se usa cuando se le quita la clase hidden) */
+.animated-section:not(.active) {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
 /* Clase para aplicar la animación a las secciones activas */
 .animated-section.active {
-    display: block !important; /* Asegura que se vea al activarse */
+    display: block !important; /* Muestra el elemento para que la animación funcione */
     animation: slideInFromRight 0.5s ease-out forwards;
 }
 
-/* Ocultar secciones por defecto para la animación */
-.animated-section:not(.active) {
-    display: none;
-}
 
 /* ========================================================== */
 /* AJUSTES ESPECÍFICOS                     */
@@ -139,8 +146,7 @@ body[data-theme="light"] .gradient-bg {
 
 /* Estilos del footer fijo */
 #footer-fijo {
-  background-color: #050507; /* Asegura el fondo oscuro */
-  border-top: 1px solid #421e64; /* Mantiene el borde de separación */
+  /* Ya definido en HTML, solo añadir la sombra/transparencia si se desea */
 }
 
 /* ========================================================== */
