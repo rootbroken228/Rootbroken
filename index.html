@@ -16,7 +16,7 @@
       theme: {
         extend: {
           colors: {
-            'galaxia-oscuro': '#050507', /* más negro */
+            'galaxia-oscuro': '#050507',
             'galaxia-purpura': '#421e64',
             'galaxia-azul': '#3ba7ff',
             'luz-estelar': '#b3f3ff',
@@ -67,15 +67,13 @@
 
   <div id="contenido-principal" class="fade">
 
-    <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm">
+    <header id="header-normal" class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm">
       <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <h1 class="text-2xl md:text-3xl font-montserrat font-black text-galaxia-azul tracking-tight">AeonVerse</h1>
 
         <nav class="hidden md:flex space-x-8">
           <a href="#inicio" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
           <a href="#galeria" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Galería</a>
-          <a href="#cuenta" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Cuenta</a>
-          <a href="#configuracion" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Configuración</a>
         </nav>
 
         <button id="menu-toggle" class="md:hidden text-luz-estelar">
@@ -86,74 +84,30 @@
       <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30">
         <a href="#inicio" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
         <a href="#galeria" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Galería</a>
-        <a href="#cuenta" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Cuenta</a>
-        <a href="#configuracion" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Configuración</a>
       </nav>
     </header>
 
-    <script>
-      // SCRIPT PARA EL MENÚ MÓVIL (Lo dejamos aquí porque es muy pequeño y simple)
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-      const menuButtons = document.querySelectorAll('.menu-btn');
-      menuButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-    </script>
-
-
-    <section id="inicio" class="min-h-screen pt-20 gradient-bg">
+    <section id="inicio" class="gradient-bg min-h-screen flex items-center pt-20">
       <div class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
-          PUNTO DE CONTROL CÓSMICO
-        </h2>
-
-        <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">ANDROID</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
-          <button class="menu-option">
-            <i class="fas fa-plus text-3xl mb-2"></i> Nuevo
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-question-circle text-3xl mb-2"></i> Ayuda
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-download text-3xl mb-2"></i> Descargas
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-sticky-note text-3xl mb-2"></i> Notas
-          </button>
-        </div>
-
-        <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">PC/DESKTOP</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-          <button class="menu-option">
-            <i class="fas fa-cube text-3xl mb-2"></i> Módulos
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-code text-3xl mb-2"></i> Terminal
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-history text-3xl mb-2"></i> Historial
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-network-wired text-3xl mb-2"></i> Red
-          </button>
-          <button class="menu-option">
-            <i class="fas fa-vial text-3xl mb-2"></i> Pruebas
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-4xl md:text-6xl lg:text-7xl font-montserrat font-black text-luz-estelar mb-6 leading-tight">
+            EL UNIVERSO DIGITAL A TU ALCANCE
+          </h2>
+          <p class="text-blanco-nebuloso text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+            AeonVerse integra inteligencia artificial, navegación segura y gestión de archivos oficiales, fusionando tecnología y creatividad...
+          </p>
+          <button id="btnExplorar"
+            class="border-2 border-galaxia-purpura text-luz-estelar px-8 py-3 rounded-full font-montserrat font-bold text-lg hover:bg-galaxia-purpura hover:text-blanco-nebuloso transition-all duration-300 hover:shadow-cosmico">
+            EXPLORAR
           </button>
         </div>
       </div>
     </section>
 
-
     <section id="galeria" class="py-20 bg-negro-espacial">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-montserrat font-black text-center mb-16 text-luz-estelar">GALERÍA CÓSMICA</h2>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="gallery-item rounded-lg overflow-hidden">
             <img src="https://picsum.photos/600/400?random=1" class="w-full h-64 object-cover" loading="lazy">
@@ -178,94 +132,159 @@
     </section>
 
 
-    <section id="cuenta" class="min-h-screen pt-20 bg-galaxia-oscuro">
-      <div class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-galaxia-azul">
-          MI GALAXIA PERSONAL
-        </h2>
+    <div id="sesion-oculta" class="hidden"> 
 
-        <div class="max-w-xl mx-auto p-8 rounded-lg border border-galaxia-purpura shadow-cosmico">
-          <p class="text-xl font-bold mb-4">Información de Usuario:</p>
-          <ul class="space-y-3 text-blanco-nebuloso">
-            <li><i class="fas fa-user-circle mr-3 text-luz-estelar"></i> Nombre: Usuario Cósmico</li>
-            <li><i class="fas fa-envelope mr-3 text-luz-estelar"></i> Correo: usuario@aeonverse.com</li>
-            <li><i class="fas fa-rocket mr-3 text-luz-estelar"></i> Nivel de Acceso: Alpha</li>
-            <li class="mt-8 text-lg font-bold">
-                <i class="fas fa-wallet mr-3 text-galaxia-azul"></i>
-                <a href="#" class="hover:text-luz-estelar transition-colors duration-300">Cartera: $4,500.00 USD</a>
-            </li>
-          </ul>
+      <header id="header-avanzado" class="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-galaxia-oscuro/90 border-b border-galaxia-purpura/90">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 class="text-2xl md:text-3xl font-montserrat font-black text-luz-estelar tracking-tight">DASHBOARD</h1>
 
-          <button class="mt-10 bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300">
-            Cerrar Sesión
+          <nav class="hidden md:flex space-x-8">
+            <a href="#dashboard-inicio" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
+            <a href="#cuenta" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Cuenta</a>
+            <a href="#configuracion" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Configuración</a>
+          </nav>
+
+          <button id="menu-toggle-avanzado" class="md:hidden text-luz-estelar">
+            <i class="fas fa-bars text-xl"></i>
           </button>
         </div>
-      </div>
-    </section>
 
+        <nav id="mobile-menu-avanzado" class="md:hidden hidden flex-col space-y-4 mt-4 p-4 absolute right-4 top-16 rounded-lg border border-galaxia-purpura/30">
+          <a href="#dashboard-inicio" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Inicio</a>
+          <a href="#cuenta" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Cuenta</a>
+          <a href="#configuracion" class="menu-btn text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 font-medium">Configuración</a>
+        </nav>
+      </header>
 
-    <section id="configuracion" class="min-h-screen pt-20 gradient-bg">
-      <div class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
-          AJUSTES DEL COSMOS
-        </h2>
+      <section id="dashboard-inicio" class="min-h-screen pt-20 gradient-bg">
+        <div class="container mx-auto px-4 py-16">
+          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
+            PUNTO DE CONTROL CÓSMICO
+          </h2>
 
-        <div class="max-w-xl mx-auto p-8 rounded-lg border border-galaxia-purpura shadow-cosmico">
-            
-            <ul class="space-y-6">
-                <li>
-                    <a href="#" class="flex justify-between items-center py-2 hover:text-galaxia-azul transition-colors duration-300 border-b border-galaxia-purpura/50">
-                        <span class="text-xl font-medium"><i class="fas fa-info-circle mr-3"></i> Nosotros</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </li>
-                
-                <li>
-                    <div class="flex justify-between items-center py-2">
-                        <span class="text-xl font-medium"><i class="fas fa-sun mr-3"></i> Modo Claro/Oscuro</span>
-                        <button id="theme-toggle" class="relative w-14 h-8 flex items-center bg-galaxia-purpura rounded-full p-1 shadow-inner transition-colors duration-300">
-                            <i id="sun-icon" class="fas fa-sun text-yellow-400 absolute left-2 transition-opacity duration-300 opacity-0"></i>
-                            <div id="toggle-circle" class="bg-luz-estelar w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 translate-x-0"></div>
-                            <i id="moon-icon" class="fas fa-moon text-blanco-nebuloso absolute right-2 transition-opacity duration-300"></i>
-                        </button>
-                    </div>
-                </li>
+          <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">ANDROID</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
+            <button class="menu-option"><i class="fas fa-plus text-3xl mb-2"></i> Nuevo</button>
+            <button class="menu-option"><i class="fas fa-question-circle text-3xl mb-2"></i> Ayuda</button>
+            <button class="menu-option"><i class="fas fa-download text-3xl mb-2"></i> Descargas</button>
+            <button class="menu-option"><i class="fas fa-sticky-note text-3xl mb-2"></i> Notas</button>
+          </div>
+
+          <h3 class="text-2xl font-montserrat font-bold text-galaxia-azul mb-6 border-b border-galaxia-purpura pb-2">PC/DESKTOP</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <button class="menu-option"><i class="fas fa-cube text-3xl mb-2"></i> Módulos</button>
+            <button class="menu-option"><i class="fas fa-code text-3xl mb-2"></i> Terminal</button>
+            <button class="menu-option"><i class="fas fa-history text-3xl mb-2"></i> Historial</button>
+            <button class="menu-option"><i class="fas fa-network-wired text-3xl mb-2"></i> Red</button>
+            <button class="menu-option"><i class="fas fa-vial text-3xl mb-2"></i> Pruebas</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="cuenta" class="min-h-screen pt-20 bg-negro-espacial">
+        <div class="container mx-auto px-4 py-16">
+          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-galaxia-azul">
+            MI GALAXIA PERSONAL
+          </h2>
+          <div class="max-w-xl mx-auto p-8 rounded-lg border border-galaxia-purpura shadow-cosmico">
+            <p class="text-xl font-bold mb-4">Información de Usuario:</p>
+            <ul class="space-y-3 text-blanco-nebuloso">
+              <li><i class="fas fa-user-circle mr-3 text-luz-estelar"></i> Nombre: Usuario Cósmico</li>
+              <li><i class="fas fa-envelope mr-3 text-luz-estelar"></i> Correo: usuario@aeonverse.com</li>
+              <li><i class="fas fa-rocket mr-3 text-luz-estelar"></i> Nivel de Acceso: Alpha</li>
+              <li class="mt-8 text-lg font-bold">
+                <i class="fas fa-wallet mr-3 text-galaxia-azul"></i>
+                <a href="#" class="hover:text-luz-estelar transition-colors duration-300">Cartera: $4,500.00 USD</a>
+              </li>
             </ul>
-
-        </div>
-      </div>
-    </section>
-
-
-    <footer class="py-12">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-6 md:mb-0 max-w-md text-center md:text-left">
-            <h3 class="text-2xl font-montserrat font-black text-luz-estelar mb-4">AeonVerse</h3>
-            <p class="text-blanco-nebuloso text-sm">
-              AeonVerse es una joven compañía en constante evolución...
-            </p>
-          </div>
-          <div class="flex space-x-6 mb-6 md:mb-0">
-            <a href="https://www.instagram.com/aelglizzy?igsh=MW5ydjZtZmQ1NmFybw==" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.facebook.com/share/14KxXh4vk1H/" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.tiktok.com/@ejemplo" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
-              <i class="fab fa-tiktok"></i>
-            </a>
-          </div>
-          <div class="text-blanco-nebuloso text-sm text-center md:text-right">
-            <p>&copy; 2025 AeonVerse. Todos los derechos reservados.</p>
+            <button class="mt-10 bg-galaxia-azul text-negro-espacial px-6 py-3 rounded-full font-montserrat font-bold hover:bg-luz-estelar transition-colors duration-300">
+              Cerrar Sesión
+            </button>
           </div>
         </div>
-      </div>
-    </footer>
+      </section>
 
-  </div>
+      <section id="configuracion" class="min-h-screen pt-20 gradient-bg">
+        <div class="container mx-auto px-4 py-16">
+          <h2 class="text-4xl md:text-5xl font-montserrat font-black text-center mb-16 text-luz-estelar">
+            AJUSTES DEL COSMOS
+          </h2>
+          <div class="max-w-xl mx-auto p-8 rounded-lg border border-galaxia-purpura shadow-cosmico">
+            <ul class="space-y-6">
+              <li>
+                <a href="#" class="flex justify-between items-center py-2 hover:text-galaxia-azul transition-colors duration-300 border-b border-galaxia-purpura/50">
+                  <span class="text-xl font-medium"><i class="fas fa-info-circle mr-3"></i> Nosotros</span>
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </li>
+              <li>
+                <div class="flex justify-between items-center py-2">
+                  <span class="text-xl font-medium"><i class="fas fa-sun mr-3"></i> Modo Claro/Oscuro</span>
+                  <button id="theme-toggle" class="relative w-14 h-8 flex items-center bg-galaxia-purpura rounded-full p-1 shadow-inner transition-colors duration-300">
+                    <i id="sun-icon" class="fas fa-sun text-yellow-400 absolute left-2 transition-opacity duration-300 opacity-0"></i>
+                    <div id="toggle-circle" class="bg-luz-estelar w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 translate-x-0"></div>
+                    <i id="moon-icon" class="fas fa-moon text-blanco-nebuloso absolute right-2 transition-opacity duration-300"></i>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="py-12">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 max-w-md text-center md:text-left">
+              <h3 class="text-2xl font-montserrat font-black text-luz-estelar mb-4">AeonVerse</h3>
+              <p class="text-blanco-nebuloso text-sm">
+                AeonVerse es una joven compañía en constante evolución...
+              </p>
+            </div>
+            <div class="flex space-x-6 mb-6 md:mb-0">
+              <a href="https://www.instagram.com/aelglizzy?igsh=MW5ydjZtZmQ1NmFybw==" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.facebook.com/share/14KxXh4vk1H/" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a href="https://www.tiktok.com/@ejemplo" target="_blank" class="text-blanco-nebuloso hover:text-luz-estelar transition-colors duration-300 text-xl">
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </div>
+            <div class="text-blanco-nebuloso text-sm text-center md:text-right">
+              <p>&copy; 2025 AeonVerse. Todos los derechos reservados.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div> 
+    </div>
   <script src="js/script.js"></script>
-
+  
+  <script>
+    // SCRIPT PARA EL MENÚ MÓVIL (Simple para el header normal)
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    // SCRIPT PARA EL MENÚ MÓVIL AVANZADO
+    const menuToggleAvanzado = document.getElementById('menu-toggle-avanzado');
+    const mobileMenuAvanzado = document.getElementById('mobile-menu-avanzado');
+    if(menuToggleAvanzado) {
+        menuToggleAvanzado.addEventListener('click', () => {
+          mobileMenuAvanzado.classList.toggle('hidden');
+        });
+    }
+    const menuButtons = document.querySelectorAll('.menu-btn');
+    menuButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(mobileMenu) mobileMenu.classList.add('hidden');
+        if(mobileMenuAvanzado) mobileMenuAvanzado.classList.add('hidden');
+      });
+    });
+  </script>
 </body>
 </html>
