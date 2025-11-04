@@ -4,6 +4,12 @@ const contenido = document.getElementById('contenido-principal');
 const modalLogin = document.getElementById('modalLogin');
 const body = document.body;
 
+// VARIABLES PARA LA NAVEGACIÓN
+const btnExplorar = document.getElementById('btnExplorar');
+const sesionOculta = document.getElementById('sesion-oculta');
+const headerNormal = document.getElementById('header-normal');
+const headerAvanzado = document.getElementById('header-avanzado');
+
 // Elementos para el MODO CLARO/OSCURO
 const themeToggle = document.getElementById('theme-toggle');
 const toggleCircle = document.getElementById('toggle-circle');
@@ -20,7 +26,7 @@ function iniciarDescarga() {
 }
 // ----------------------------
 
-// 1. DESCARGA AUTOMÁTICA (Al cargar la página)
+// 1. DESCARGA AUTOMÁTICA & INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', () => {
     if (acceso && acceso.style.display !== 'none') {
         iniciarDescarga();
@@ -32,18 +38,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// 2. DESCARGA AL CLIC EN "ACCEDER" (En la pantalla de inicio)
+// 2. LOGICA DE ACCESO (Modal)
 if (botonAcceder) {
     botonAcceder.addEventListener('click', () => {
       iniciarDescarga();
-      
       modalLogin.classList.add('show');
       body.classList.add('modal-active');
     });
 }
 
 
-// Botón Google: cierra modal y muestra contenido principal
+// Botón Google: cierra modal y muestra contenido principal (Normal)
 document.getElementById('btnGoogle').addEventListener('click', () => {
   modalLogin.classList.remove('show');
   body.classList.remove('modal-active');
@@ -55,8 +60,11 @@ document.getElementById('btnGoogle').addEventListener('click', () => {
   contenido.style.display = 'block';
   setTimeout(() => contenido.classList.add('show'), 50);
   
-  // Navega directamente a la nueva sección de Inicio
-  window.location.hash = '#inicio';
+  // Asegura que se vea el header normal y se oculte la sesión oculta
+  if(sesionOculta) sesionOculta.classList.add('hidden');
+  if(headerNormal) headerNormal.classList.remove('hidden');
+
+  window.scrollTo(0,0);
 });
 
 // Cerrar modal si se hace click fuera del contenido
@@ -68,11 +76,36 @@ modalLogin.addEventListener('click', e => {
 });
 
 
+// *** NUEVA LÓGICA: BOTÓN EXPLORAR (Entrar a la Sesión Oculta) ***
+if (btnExplorar && sesionOculta) {
+    btnExplorar.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // 1. Ocultar contenido normal (Hero y Galeria)
+        document.getElementById('inicio').classList.add('hidden');
+        document.getElementById('galeria').classList.add('hidden');
+        
+        // 2. Ocultar el header normal
+        headerNormal.classList.add('hidden');
+
+        // 3. Mostrar la Sesión Oculta (el Dashboard Avanzado)
+        sesionOculta.classList.remove('hidden');
+
+        // 4. Muestra el header avanzado
+        headerAvanzado.classList.remove('hidden');
+        
+        // 5. Navega a la nueva sección de inicio del dashboard
+        window.location.hash = '#dashboard-inicio';
+        window.scrollTo(0,0);
+    });
+}
+
+
 // *** LÓGICA MODO CLARO/OSCURO ***
 
 function updateThemeUI(theme) {
+    // Lógica CSS para cambiar la clase y los iconos
     if (theme === 'light') {
-        // Mover palanca a la derecha
         toggleCircle.style.transform = 'translateX(100%)';
         themeToggle.style.backgroundColor = 'var(--celeste-claro)';
         moonIcon.style.opacity = '0';
@@ -80,7 +113,6 @@ function updateThemeUI(theme) {
         body.classList.remove('bg-galaxia-oscuro', 'text-blanco-nebuloso');
         body.classList.add('bg-luz-claro', 'text-negro-espacial');
     } else {
-        // Mover palanca a la izquierda
         toggleCircle.style.transform = 'translateX(0)';
         themeToggle.style.backgroundColor = 'var(--galaxia-purpura)';
         moonIcon.style.opacity = '1';
@@ -90,15 +122,12 @@ function updateThemeUI(theme) {
     }
 }
 
-themeToggle.addEventListener('click', () => {
-    let currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    // Actualizar el atributo y la UI
-    body.setAttribute('data-theme', newTheme);
-    updateThemeUI(newTheme);
-    
-    // NOTA: Para que el modo claro funcione 100% bien,
-    // se necesita añadir lógica de colores claros en style.css.
-    // Por ahora, solo se invierten los colores de fondo/texto.
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        let currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        body.setAttribute('data-theme', newTheme);
+        updateThemeUI(newTheme);
+    });
+}
